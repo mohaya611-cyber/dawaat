@@ -175,6 +175,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 .tabs.sm a{font-size:14px;padding:8px 12px}
 .kv{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .cpbox{width:100%;font-size:14px;direction:ltr;border:1px solid var(--a-line);border-radius:10px;padding:10px}
+.dform fieldset .f{margin-bottom:10px}
+.mfile,.murl{margin-bottom:10px}.mup{cursor:pointer;border-style:dashed}.mstat{font-size:13px;color:var(--a-mut);margin-top:6px}
+.mtest{margin-top:4px}
+.bank-mini{display:flex;align-items:center;gap:10px;justify-content:space-between;text-decoration:none;background:linear-gradient(135deg,#2c241a,#4a3a22);color:#f3e6c8;border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
+.bank-mini b{font-size:22px;color:#f0d696}.bank-mini small{opacity:.8;font-size:12.5px}
+.bank{text-align:center;background:radial-gradient(120% 120% at 50% 0,#4a3a22,#2c241a);color:#f3e6c8;border-radius:20px;padding:26px 16px;margin-bottom:12px}
+.bank .coin{font-size:42px}.b-total{font-size:40px;font-weight:700;color:#f0d696;margin:4px 0}.b-sub{font-size:13px;opacity:.8}
 /* ===================== EXPERIENCE ===================== */
 .xp{position:fixed;inset:0;z-index:50;overflow:hidden;--ew:min(84vw,380px);color:var(--ink);font-family:var(--fb);direction:rtl;-webkit-tap-highlight-color:transparent}
 .xp.in-frame{position:absolute;--ew:250px}
@@ -415,7 +422,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 <div id="app"><div class="loading"><span></span></div></div>
 <script type="module">
 /* ===================== CONFIG ===================== */
-const FB_CONFIG = null;
+const FB_CONFIG = {"apiKey": "AIzaSyAozVd53M-mQhhSsEQJEuAX9Ypmc62tGAU", "authDomain": "dawaat-d02a9.firebaseapp.com", "projectId": "dawaat-d02a9", "storageBucket": "dawaat-d02a9.firebasestorage.app", "messagingSenderId": "1030315464176", "appId": "1:1030315464176:web:12094f10556434a64df935"};
 const FB_VER = "10.12.2";
 const DEMO = !FB_CONFIG;
 
@@ -566,7 +573,7 @@ const ENVELOPES = {
 const ORNAMENTS = { "gold-frame": "إطار ذهبي ملكي", roses: "ورود ناعمة", "deco": "خطوط فاخرة (آرت ديكو)", pearls: "عقد لؤلؤ", leaves: "أغصان نباتية", classic: "زخرفة كلاسيكية" };
 const TRANSITIONS = { rise: "ارتفاع البطاقة", unfold: "انفراد البطاقة", fade: "ظهور ناعم" };
 const PARTICLES = { gold: "غبار ذهبي", petals: "بتلات ورد", sparkle: "لمعات", leaves: "أوراق خضراء", none: "بدون" };
-const MUSIC = { musicbox: "صندوق موسيقى", harp: "هارب ناعم", piano: "بيانو هادئ", none: "بدون موسيقى", url: "رابط ملف صوتي (MP3)" };
+const MUSIC = { musicbox: "صندوق موسيقى (مدمجة)", harp: "هارب ناعم (مدمجة)", piano: "بيانو هادئ (مدمجة)", file: "ملف صوتي من جوالك", url: "رابط مباشر لملف MP3", none: "بدون موسيقى" };
 const FONTS_AR = ["Aref Ruqaa", "Amiri", "Reem Kufi", "El Messiri", "Lateef", "Noto Naskh Arabic", "Cairo", "Marhey"];
 const FONTS_LAT = ["Cormorant Garamond", "Great Vibes", "Playfair Display", "Pinyon Script", "Italiana"];
 
@@ -707,41 +714,82 @@ const TIMELINE = {
 };
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ===================== MUSIC (original synthesized melodies) ===================== */
+/* ===================== MUSIC =====================
+   Built-in melodies are original and rendered once to a WAV, then played through an <audio> element
+   (an <audio> element keeps playing when the iPhone is on silent; WebAudio does not). */
+const SEQS = {
+  musicbox: { bpm: 84, notes: [76, 79, 84, 83, 79, 76, 74, null, 76, 77, 81, 79, 77, 76, 72, null, 74, 76, 79, 77, 76, 74, 72, 71, 72, null, 79, 84, 83, 81, 79, null] },
+  harp: { bpm: 96, notes: [60, 64, 67, 72, 76, 72, 67, 64, 57, 60, 64, 69, 72, 69, 64, 60, 53, 57, 60, 65, 69, 65, 60, 57, 55, 59, 62, 67, 71, 67, 62, 59] },
+  piano: { bpm: 66, notes: [64, null, 67, 72, 71, null, 67, null, 65, null, 69, 72, 74, null, 72, null, 64, null, 67, 71, 72, 71, 69, 67, 65, null, 64, 62, 60, null, null, null] }
+};
+const SILENT_WAV = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=";
+function wavFromBuffer(buf) {
+  const ch = buf.getChannelData(0), n = ch.length, sr = buf.sampleRate;
+  const dv = new DataView(new ArrayBuffer(44 + n * 2)); let p = 0;
+  const w = (s) => { for (const c of s) dv.setUint8(p++, c.charCodeAt(0)); }, u32 = (v) => { dv.setUint32(p, v, true); p += 4; }, u16 = (v) => { dv.setUint16(p, v, true); p += 2; };
+  w("RIFF"); u32(36 + n * 2); w("WAVE"); w("fmt "); u32(16); u16(1); u16(1); u32(sr); u32(sr * 2); u16(2); u16(16); w("data"); u32(n * 2);
+  let peak = 0; for (let i = 0; i < n; i++) peak = Math.max(peak, Math.abs(ch[i])); const k = peak > 0 ? .85 / peak : 1;
+  for (let i = 0; i < n; i++) { dv.setInt16(p, Math.max(-1, Math.min(1, ch[i] * k)) * 32767, true); p += 2; }
+  return URL.createObjectURL(new Blob([dv], { type: "audio/wav" }));
+}
+async function renderPreset(preset) {
+  const seq = SEQS[preset]; if (!seq) return null;
+  const step = 60 / seq.bpm / 2, loop = seq.notes.length * step, sr = 22050, dur = loop * 2;
+  const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext; if (!OAC) return null;
+  const ctx = new OAC(1, Math.ceil(sr * dur), sr);
+  const master = ctx.createGain(); master.gain.value = .5;
+  const delay = ctx.createDelay(1); delay.delayTime.value = .32; const fb = ctx.createGain(); fb.gain.value = .3;
+  const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 2600;
+  master.connect(ctx.destination); master.connect(delay); delay.connect(lp); lp.connect(fb); fb.connect(delay); lp.connect(ctx.destination);
+  const mk = (type, freq, g0, dec, at) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(g0, at + .008); g.gain.exponentialRampToValueAtTime(.0001, at + dec); o.connect(g); g.connect(master); o.start(at); o.stop(Math.min(dur, at + dec + .05)); };
+  for (let r = 0; r < 2; r++) seq.notes.forEach((n, i) => {
+    if (!n) return; const at = r * loop + i * step + .02, f = 440 * Math.pow(2, (n - 69) / 12);
+    if (preset === "musicbox") { mk("sine", f, .5, 1.4, at); mk("sine", f * 2, .14, .5, at); mk("sine", f * 3.01, .05, .3, at); }
+    if (preset === "harp") { mk("triangle", f, .35, 2.2, at); mk("sine", f * 2, .1, 1.0, at); }
+    if (preset === "piano") { mk("sine", f, .45, 2.4, at); mk("triangle", f, .12, 1.2, at); mk("sine", f / 2, .12, 2.6, at); }
+  });
+  const buf = await (ctx.startRendering.length ? new Promise(res => { ctx.oncomplete = e => res(e.renderedBuffer); ctx.startRendering(); }) : ctx.startRendering());
+  return wavFromBuffer(buf);
+}
+const MEDIA_CACHE = {};
+async function loadMedia(id) {
+  if (!id) return null; if (MEDIA_CACHE[id]) return MEDIA_CACHE[id];
+  const meta = await S.get("media/" + id); if (!meta) return null;
+  const parts = await Promise.all(Array.from({ length: meta.parts }, (_, i) => S.get(`media/${id}/parts/${i}`)));
+  const b64 = parts.map(p => p?.d || "").join(""); const bin = atob(b64); const u8 = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  return MEDIA_CACHE[id] = URL.createObjectURL(new Blob([u8], { type: meta.type || "audio/mpeg" }));
+}
+async function uploadMedia(file) {
+  if (!file) throw new Error("لم يتم اختيار ملف");
+  if (file.size > 4.5 * 1024 * 1024) throw new Error("الملف أكبر من 4.5 ميجا — اختر مقطعًا أقصر");
+  const b64 = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1] || ""); r.onerror = () => rej(new Error("تعذّر قراءة الملف")); r.readAsDataURL(file); });
+  const CH = 700000, n = Math.ceil(b64.length / CH), id = "m" + rid(14);
+  for (let i = 0; i < n; i++) await S.set(`media/${id}/parts/${i}`, { d: b64.slice(i * CH, (i + 1) * CH) });
+  await S.set("media/" + id, { name: file.name.slice(0, 80), type: file.type || "audio/mpeg", size: file.size, parts: n, at: Date.now() });
+  return id;
+}
 const Music = {
-  ctx: null, timer: null, audio: null, on: false, preset: null,
-  seqs: {
-    musicbox: { bpm: 84, notes: [76, 79, 84, 83, 79, 76, 74, null, 76, 77, 81, 79, 77, 76, 72, null, 74, 76, 79, 77, 76, 74, 72, 71, 72, null, 79, 84, 83, 81, 79, null] },
-    harp: { bpm: 96, notes: [60, 64, 67, 72, 76, 72, 67, 64, 57, 60, 64, 69, 72, 69, 64, 60, 53, 57, 60, 65, 69, 65, 60, 57, 55, 59, 62, 67, 71, 67, 62, 59] },
-    piano: { bpm: 66, notes: [64, null, 67, 72, 71, null, 67, null, 65, null, 69, 72, 74, null, 72, null, 64, null, 67, 71, 72, 71, 69, 67, 65, null, 64, 62, 60, null, null, null] }
+  el: null, on: false, ready: null, url: null, cache: {},
+  prepare(d) {
+    this.url = null; const kind = d.music || "none";
+    this.ready = (async () => {
+      if (kind === "none") return null;
+      if (kind === "url") return d.musicUrl || null;
+      if (kind === "file") return await loadMedia(d.musicFile);
+      return this.cache[kind] || (this.cache[kind] = await renderPreset(kind));
+    })().then(u => (this.url = u)).catch(() => null);
+    return this.ready;
   },
-  start(preset, url) {
-    this.stop(); this.preset = preset; if (preset === "none") return;
-    if (preset === "url") { if (!url) return; this.audio = new Audio(url); this.audio.loop = true; this.audio.volume = .55; this.audio.play().catch(() => { }); this.on = true; return; }
-    const seq = this.seqs[preset]; if (!seq) return;
-    try { this.ctx = this.ctx || new (window.AudioContext || window.webkitAudioContext)(); } catch { return; }
-    const ctx = this.ctx; ctx.resume?.();
-    const master = ctx.createGain(); master.gain.value = 0.0; master.gain.linearRampToValueAtTime(0.16, ctx.currentTime + 1.5);
-    const delay = ctx.createDelay(); delay.delayTime.value = 0.32; const fb = ctx.createGain(); fb.gain.value = 0.32;
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 2600;
-    master.connect(ctx.destination); master.connect(delay); delay.connect(lp); lp.connect(fb); fb.connect(delay); lp.connect(ctx.destination);
-    this.master = master; this.on = true;
-    const step = 60 / seq.bpm / 2; let i = 0; let t = ctx.currentTime + 0.1;
-    const play = (n, at) => {
-      const f = 440 * Math.pow(2, (n - 69) / 12);
-      const mk = (type, freq, g0, dec) => { const o = ctx.createOscillator(); const g = ctx.createGain(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(g0, at + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, at + dec); o.connect(g); g.connect(master); o.start(at); o.stop(at + dec + .05); };
-      if (preset === "musicbox") { mk("sine", f, .5, 1.4); mk("sine", f * 2, .14, .5); mk("sine", f * 3.01, .05, .3); }
-      if (preset === "harp") { mk("triangle", f, .35, 2.2); mk("sine", f * 2, .1, 1.0); }
-      if (preset === "piano") { mk("sine", f, .45, 2.4); mk("triangle", f, .12, 1.2); mk("sine", f / 2, .12, 2.6); }
-    };
-    const tick = () => { while (t < ctx.currentTime + 0.6) { const n = seq.notes[i % seq.notes.length]; if (n) play(n, t); t += step; i++; } };
-    tick(); this.timer = setInterval(tick, 200);
+  play() {  // must be called from a tap
+    if (!this.el) { this.el = new Audio(); this.el.loop = true; this.el.preload = "auto"; this.el.setAttribute("playsinline", ""); }
+    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch { }
+    const el = this.el; this.on = true;
+    if (this.url) { el.src = this.url; el.volume = .7; el.play().catch(() => { }); }
+    else { el.src = SILENT_WAV; el.play().catch(() => { }); this.ready?.then(u => { if (u && this.on) { el.src = u; el.volume = .7; el.play().catch(() => { }); } }); }
   },
-  stop() {
-    clearInterval(this.timer); this.timer = null; this.on = false;
-    if (this.audio) { this.audio.pause(); this.audio = null; }
-    if (this.master && this.ctx) { try { this.master.gain.linearRampToValueAtTime(0, this.ctx.currentTime + .3); const m = this.master; setTimeout(() => m.disconnect(), 400); } catch { } this.master = null; }
-  }
+  resume() { if (this.el && this.url) { this.on = true; this.el.play().catch(() => { }); } },
+  stop() { this.on = false; if (this.el) { try { this.el.pause(); } catch { } } }
 };
 
 /* ===================== ICS ===================== */
@@ -804,8 +852,9 @@ function mountExperience(host, spec, hooks = {}) {
   </div>`;
   const xp = $(".xp", host), wrap = $(".env-wrap", xp), env = $(".env", xp), musicBtn = $(".xp-music", xp);
   let opened = false; const timers = [];
-  const startMusic = () => { if (spec.mode === "preview" && hooks.silent) return; Music.start(d.music || "none", d.musicUrl); if (d.music && d.music !== "none") { musicBtn.hidden = false; musicBtn.classList.add("on"); } };
-  musicBtn.onclick = () => { if (Music.on) { Music.stop(); musicBtn.classList.remove("on"); } else { Music.start(d.music, d.musicUrl); musicBtn.classList.add("on"); } };
+  Music.stop(); const hasMusic = d.music && d.music !== "none"; if (hasMusic) Music.prepare(d);
+  const startMusic = () => { if (!hasMusic) return; Music.play(); musicBtn.hidden = false; musicBtn.classList.add("on"); };
+  musicBtn.onclick = () => { if (Music.on) { Music.stop(); musicBtn.classList.remove("on"); } else { Music.url ? Music.resume() : Music.play(); musicBtn.classList.add("on"); } };
   const open = () => {
     if (opened) return; opened = true; xp.classList.add("opening"); startMusic();
     const tl = TIMELINE[d.envelope] || TIMELINE.pearl;
@@ -963,7 +1012,7 @@ async function resolveRole() {
 const routes = [];
 const route = (re, fn) => routes.push([re, fn]);
 async function router() {
-  stopXp(); $$(".overlay,.modal").forEach(x => x.remove());
+  stopXp(); Music.stop(); $$(".overlay,.modal").forEach(x => x.remove());
   const h = location.hash.replace(/^#/, "") || "/";
   for (const [re, fn] of routes) { const m = h.match(re); if (m) { window.scrollTo(0, 0); try { await fn(...m.slice(1)); } catch (e) { console.error(e); app().innerHTML = shell(`<div class="empty">${esc(e.message || "حدث خطأ")}</div>`, { back: "#/" }); } return; } }
   location.hash = "#/";
@@ -1087,8 +1136,8 @@ route(/^\/login$/, async () => {
 const waitUser = async () => { for (let i = 0; i < 50 && !S.user; i++) await sleep(100); ME.user = S.user; };
 
 /* ===================== OWNER: DASHBOARD ===================== */
-const TABS = { inv: "الدعوات", designs: "مكتبة التصاميم", orders: "الطلبات", settings: "الإعدادات" };
-route(/^\/admin(?:\/(inv|designs|orders|settings))?$/, async (tab = "inv") => {
+const TABS = { inv: "الدعوات", bank: "الحصالة", designs: "مكتبة التصاميم", orders: "الطلبات", settings: "الإعدادات" };
+route(/^\/admin(?:\/(inv|bank|designs|orders|settings))?$/, async (tab = "inv") => {
   if (!needOwner()) return;
   const nav = `<nav class="tabs">${Object.entries(TABS).map(([k, v]) => `<a href="#/admin/${k}" class="${k === tab ? "on" : ""}">${v}</a>`).join("")}</nav>`;
   app().innerHTML = shell(`${nav}<div id="tab"><div class="loading"><span></span></div></div>`, { title: "لوحة المالك" });
@@ -1097,13 +1146,16 @@ route(/^\/admin(?:\/(inv|designs|orders|settings))?$/, async (tab = "inv") => {
   if (tab === "designs") return tabDesigns(el);
   if (tab === "orders") return tabOrders(el);
   if (tab === "settings") return tabSettings(el);
+  if (tab === "bank") return tabBank(el);
 });
 const STATUS = { draft: ["مسودة", "st-d"], published: ["منشورة", "st-p"], hidden: ["موقوفة", "st-h"] };
 async function tabInvites(el) {
   const [list, ts] = await Promise.all([S.list("invites"), getTemplates()]);
   list.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
   const tn = (id) => ts.find(t => t.id === id)?.nameAr || id;
-  el.innerHTML = `<div class="bar"><a class="btn pri" href="#/admin/new">＋ إنشاء دعوة جديدة</a></div>
+  const bank = await bankSummary().catch(() => null);
+  el.innerHTML = `${bank ? `<a class="bank-mini" href="#/admin/bank"><span>🪙 الحصالة</span><b>${fmtSAR(bank.total)}</b><small>${bank.invites} زفة · ${bank.videos} فيديو</small></a>` : ""}
+  <div class="bar"><a class="btn pri" href="#/admin/new">＋ إنشاء دعوة جديدة</a></div>
   ${list.length ? `<div class="list">${list.map(i => `<a class="row" href="#/admin/inv/${esc(i.id)}">
     <div class="r-main"><b>${esc(i.clientName || i.event?.bride || "دعوة بدون اسم")}</b><span>${esc(i.event?.bride || "")}${i.event?.groom ? " & " + esc(i.event.groom) : ""} · ${esc(tn(i.templateId))}</span></div>
     <div class="r-side"><span class="st ${STATUS[i.status]?.[1]}">${STATUS[i.status]?.[0] || ""}</span><small>${esc(i.event?.date || "")}</small></div></a>`).join("")}</div>`
@@ -1140,12 +1192,56 @@ async function tabSettings(el) {
     ${fld("اسم المنصة / العلامة", "brandName", SITE.brandName, "text", 'maxlength="40" required')}
     ${fld("العبارة التعريفية", "tagline", SITE.tagline, "text", 'maxlength="120"')}
     ${fld("رقم واتساب للتواصل (بالصيغة الدولية)", "whatsapp", SITE.whatsapp, "tel", 'dir="ltr" placeholder="9665XXXXXXXX"')}
+    <div class="g2">${fld("سعر الزفة (ريال)", "priceInvite", SITE.priceInvite ?? 50, "number", 'min="0" step="1"')}${fld("سعر الفيديو (ريال)", "priceVideo", SITE.priceVideo ?? 55, "number", 'min="0" step="1"')}</div>
     <button class="btn pri">حفظ</button></form>
     <div class="card"><h3>روابط مهمة</h3>
       <div class="kv"><span>صفحة التصاميم العامة</span><button class="btn sm" data-cp="${esc(location.origin + location.pathname + "#/designs")}">نسخ الرابط</button></div>
     </div>`;
-  $("#sf").onsubmit = async (e) => { e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); await S.set("config/site", d, true); Object.assign(SITE, d); toast("تم الحفظ"); };
+  $("#sf").onsubmit = async (e) => { e.preventDefault(); const d = Object.fromEntries(new FormData(e.target)); d.priceInvite = +d.priceInvite || 0; d.priceVideo = +d.priceVideo || 0; await S.set("config/site", d, true); Object.assign(SITE, d); toast("تم الحفظ"); };
   $$("[data-cp]", el).forEach(b => b.onclick = () => copy(b.dataset.cp));
+}
+
+/* ===================== PIGGY BANK (الحصالة) ===================== */
+const PRICE = () => ({ invite: +(SITE.priceInvite ?? 50) || 0, video: +(SITE.priceVideo ?? 55) || 0 });
+const SALE_T = { invite: "زفة (دعوة)", video: "فيديو" };
+const fmtSAR = (n) => new Intl.NumberFormat("ar-SA-u-nu-latn").format(n || 0) + " ريال";
+async function salesSinceReset() {
+  const all = await S.list("sales"); const from = +(SITE.bankResetAt || 0);
+  return all.filter(x => (x.at || 0) > from).sort((a, b) => (b.at || 0) - (a.at || 0));
+}
+async function bankSummary() {
+  const l = await salesSinceReset();
+  return { list: l, total: l.reduce((s, x) => s + (+x.amount || 0), 0), invites: l.filter(x => x.type === "invite").length, videos: l.filter(x => x.type === "video").length };
+}
+async function addSale(type, client, inviteId) {
+  const rec = { type, amount: PRICE()[type], client: (client || "").slice(0, 80), at: Date.now() };
+  if (inviteId) rec.inviteId = inviteId;
+  return S.add("sales", rec);
+}
+async function tabBank(el) {
+  const b = await bankSummary(); const now = new Date(); const mStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+  const month = b.list.filter(x => x.at >= mStart).reduce((s, x) => s + (+x.amount || 0), 0);
+  el.innerHTML = `<section class="bank">
+      <div class="coin">🪙</div><div class="b-total">${fmtSAR(b.total)}</div>
+      <div class="b-sub">${SITE.bankResetAt ? "منذ التصفير في " + fmtTs(SITE.bankResetAt) : "منذ البداية"}</div>
+    </section>
+    <section class="stats">
+      <div><b>${b.invites}</b><span>زفة × ${PRICE().invite}</span></div>
+      <div><b>${b.videos}</b><span>فيديو × ${PRICE().video}</span></div>
+      <div class="tot"><b>${new Intl.NumberFormat("ar-SA-u-nu-latn").format(month)}</b><span>هذا الشهر (ريال)</span></div>
+    </section>
+    <div class="g1" style="margin-bottom:12px"><button class="btn pri" data-add="video">＋ تسجيل فيديو (${PRICE().video} ريال)</button><button class="btn" data-add="invite">＋ زفة يدوية (${PRICE().invite} ريال)</button></div>
+    <p class="hint-s" style="margin:-4px 0 12px">كل دعوة تُنشر لأول مرة تنضاف للحصالة تلقائيًا. الفيديو تسجّله من الزر.</p>
+    <div class="list">${b.list.map(x => `<div class="row"><div class="r-main"><b>${esc(SALE_T[x.type] || x.type)}${x.client ? " — " + esc(x.client) : ""}</b><span>${fmtTs(x.at)}</span></div>
+      <div class="r-side"><b>${fmtSAR(x.amount)}</b><button class="link" data-del="${esc(x.id)}">حذف</button></div></div>`).join("") || `<div class="empty">الحصالة فاضية. أول دعوة تنشرها تنضاف هنا.</div>`}</div>
+    <div style="margin-top:18px"><button class="btn danger wide" id="reset">تصفير الحصالة</button></div>`;
+  $$("[data-add]", el).forEach(btn => btn.onclick = () => {
+    const type = btn.dataset.add;
+    const m = modal(`<h2>${type === "video" ? "تسجيل فيديو" : "تسجيل زفة يدوية"}</h2><form class="form" id="sf2">${fld("اسم العميلة (اختياري)", "client", "", "text", 'maxlength="80"')}<button class="btn pri wide">إضافة ${PRICE()[type]} ريال</button></form>`);
+    $("#sf2", m.el).onsubmit = async (e) => { e.preventDefault(); await addSale(type, e.target.client.value.trim()); m.close(); toast("انضاف للحصالة"); tabBank(el); };
+  });
+  $$("[data-del]", el).forEach(btn => btn.onclick = async () => { if (await ask("حذف هذا القيد من الحصالة؟", "حذف")) { await S.del("sales/" + btn.dataset.del); tabBank(el); } });
+  $("#reset").onclick = async () => { if (!(await ask("تصفير الحصالة؟ يبدأ العد من صفر، والسجل القديم يبقى محفوظ.", "تصفير"))) return; const at = Date.now(); await S.set("config/site", { bankResetAt: at }, true); SITE.bankResetAt = at; toast("تم التصفير"); tabBank(el); };
 }
 
 /* ===================== DESIGN FORM (shared: template editor + wizard step 3) ===================== */
@@ -1166,10 +1262,16 @@ function designFormHTML(d, base) {
       ${sel("المؤثرات بعد الفتح", "particles", PARTICLES, d.particles)}
       ${fld("حروف الختم (اختياري)", "monogram", d.monogram || "", "text", 'maxlength="5" placeholder="تلقائي من الأسماء"')}
     </div></fieldset>
-    <fieldset><legend>الموسيقى</legend><div class="g2">
-      ${sel("الموسيقى", "music", MUSIC, d.music)}
-      ${fld("رابط الملف الصوتي", "musicUrl", d.musicUrl || "", "url", 'dir="ltr" placeholder="https://…/song.mp3"')}
-    </div><p class="hint-s">الموسيقى المدمجة مؤلفة داخل المنصة ولا تحتاج تحميل ملفات. عند استخدام رابط خارجي تأكد أن لديك حق استخدامه.</p></fieldset>
+    <fieldset><legend>الموسيقى</legend>
+      ${sel("نوع الموسيقى", "music", MUSIC, d.music)}
+      <div class="mfile">
+        <input type="hidden" name="musicFile" value="${esc(d.musicFile || "")}"><input type="hidden" name="musicName" value="${esc(d.musicName || "")}">
+        <label class="btn wide mup"><input type="file" accept="audio/*,.mp3,.m4a,.aac,.wav" hidden><span>${d.musicFile ? "تغيير الملف" : "اختيار ملف صوتي من الجوال"}</span></label>
+        <div class="mstat">${d.musicFile ? "✓ " + esc(d.musicName || "ملف مرفوع") : "MP3 أو M4A بحجم أقصى 4.5 ميجا"}</div>
+      </div>
+      <div class="murl">${fld("رابط مباشر ينتهي بـ ‎.mp3", "musicUrl", d.musicUrl || "", "url", 'dir="ltr" placeholder="https://…/song.mp3"')}</div>
+      <button type="button" class="btn sm mtest">▶︎ تجربة الصوت</button>
+      <p class="hint-s">الموسيقى المدمجة مؤلفة داخل المنصة وتعمل فورًا. عند رفع ملف تأكد أن لديك حق استخدامه.</p></fieldset>
   </div>`;
 }
 function readDesignForm(root, d) {
@@ -1178,7 +1280,7 @@ function readDesignForm(root, d) {
     const n = i.name, v = i.value;
     if (n.startsWith("c.")) o.colors[n.slice(2)] = v;
     else if (n.startsWith("f.")) o.fonts[n.slice(2)] = v;
-    else if (["envelope", "transition", "ornament", "particles", "music", "musicUrl", "monogram"].includes(n)) o[n] = v.trim();
+    else if (["envelope", "transition", "ornament", "particles", "music", "musicUrl", "musicFile", "musicName", "monogram"].includes(n)) o[n] = v.trim();
   });
   return o;
 }
@@ -1191,12 +1293,30 @@ function diffDesign(full, base) {  // overrides only
   return out;
 }
 function bindDesignForm(root, getD, setD, base, onChange) {
-  const upd = () => { setD(readDesignForm(root, getD())); onChange(); const mu = $("[name=musicUrl]", root); if (mu) mu.closest("label").style.display = $("[name=music]", root).value === "url" ? "" : "none"; };
+  const vis = () => { const m = $("[name=music]", root)?.value; const f = $(".mfile", root), u = $(".murl", root), t = $(".mtest", root);
+    if (f) f.style.display = m === "file" ? "" : "none"; if (u) u.style.display = m === "url" ? "" : "none"; if (t) t.style.display = m === "none" ? "none" : ""; };
+  const upd = (e) => { if (e?.target?.type === "file") return; setD(readDesignForm(root, getD())); onChange(); vis(); };
   root.addEventListener("input", upd); root.addEventListener("change", upd);
   $$("[data-reset]", root).forEach(b => b.onclick = () => { const d = getD(); d.colors = clone(base.colors); setD(d); $$("[name^='c.']", root).forEach(i => i.value = d.colors[i.name.slice(2)]); onChange(); });
-  upd();
+  const fi = $(".mup input[type=file]", root);
+  if (fi) fi.onchange = async () => {
+    const file = fi.files[0]; if (!file) return; const st = $(".mstat", root), lab = $(".mup span", root);
+    st.textContent = "جارٍ رفع الملف…"; lab.textContent = "جارٍ الرفع…";
+    try {
+      const id = await uploadMedia(file);
+      $("[name=musicFile]", root).value = id; $("[name=musicName]", root).value = file.name.slice(0, 80);
+      st.textContent = "✓ " + file.name; lab.textContent = "تغيير الملف"; upd(); toast("تم رفع الموسيقى");
+    } catch (x) { st.textContent = x.message || "تعذّر الرفع"; lab.textContent = "اختيار ملف صوتي من الجوال"; toast(x.message || "تعذّر الرفع", "bad"); }
+    fi.value = "";
+  };
+  const tb = $(".mtest", root);
+  if (tb) tb.onclick = async () => {
+    if (Music.on) { Music.stop(); tb.textContent = "▶︎ تجربة الصوت"; return; }
+    const d = getD(); if (d.music === "file" && !d.musicFile) { toast("اختر ملفًا أولًا", "bad"); return; }
+    Music.prepare(d); Music.play(); tb.textContent = "■ إيقاف";
+  };
+  vis();
 }
-
 /* ===================== TEMPLATE EDITOR ===================== */
 route(/^\/admin\/tpl\/(new\/)?([\w-]+)$/, async (isNew, tid) => {
   if (!needOwner()) return;
@@ -1368,7 +1488,7 @@ route(/^\/admin\/(new|edit)(?:\/(order|tpl))?(?:\/([\w-]+))?$/, async (mode, kin
       try {
         await save(true);
         await publishInvite(iid, W, tplOf());
-        W.status = "published"; si.readOnly = true;
+        W.status = "published"; W.sold = true; si.readOnly = true;
         const url = linkFor(W.slug);
         $("#pubok").innerHTML = `<div class="okbox"><b>تم نشر الدعوة ✓</b><div class="linkbox" dir="ltr">${esc(url)}</div>
           <div class="g1"><button class="btn" id="cpl">نسخ الرابط</button><a class="btn" target="_blank" rel="noopener" href="${esc(waLink(shareText(W.event, url)))}">مشاركة واتساب</a><a class="btn pri" href="#/admin/inv/${esc(iid)}">صفحة الدعوة والردود</a></div></div>`;
@@ -1385,7 +1505,10 @@ async function publishInvite(iid, W, tpl) {
   const design = deepMerge(tpl.design, W.design);
   const pub = { iid, design, event: W.event, rsvp: { ...W.rsvp, deadlineMs: W.rsvp.deadline ? new Date(W.rsvp.deadline + "T23:59:59+03:00").getTime() : 0 }, brideUids: W.brideUids || [], status: "live", templateId: W.templateId, publishedAt: Date.now() };
   await S.set("pub/" + W.slug, pub);
-  await S.set("invites/" + iid, { status: "published", slug: W.slug, publishedAt: pub.publishedAt }, true);
+  const cur = await S.get("invites/" + iid).catch(() => null);
+  const firstTime = !cur?.sold;
+  await S.set("invites/" + iid, { status: "published", slug: W.slug, publishedAt: pub.publishedAt, sold: true }, true);
+  if (firstTime) { await addSale("invite", W.clientName || W.event.bride || "", iid).catch(() => { }); toast(`انضاف ${PRICE().invite} ريال للحصالة 🪙`); }
 }
 
 /* ===================== INVITE DETAIL (owner + bride) ===================== */
