@@ -182,6 +182,20 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bank-mini b{font-size:22px;color:#f0d696}.bank-mini small{opacity:.8;font-size:12.5px}
 .bank{text-align:center;background:radial-gradient(120% 120% at 50% 0,#4a3a22,#2c241a);color:#f3e6c8;border-radius:20px;padding:26px 16px;margin-bottom:12px}
 .bank .coin{font-size:42px}.b-total{font-size:40px;font-weight:700;color:#f0d696;margin:4px 0}.b-sub{font-size:13px;opacity:.8}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 14px 14px;max-width:1080px;margin:0 auto;scrollbar-width:none}
+.chips button{flex:none;border:1px solid var(--a-line);background:#fff;border-radius:999px;padding:9px 16px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chips button.on{background:var(--a-acc2);border-color:var(--a-acc2);color:#fff}
+.chips.sm{padding:0 0 12px}
+.of-head{display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;background:var(--bg);margin-bottom:12px}.of-head div{display:flex;flex-direction:column;gap:2px}.of-head b{font-size:18px;color:var(--ink)}.of-head small{color:var(--ink);opacity:.7}
+.ord-h{display:flex;gap:14px;align-items:center;margin-bottom:12px}.ord-t{border-radius:12px;padding:16px 8px}.ord-h>div:last-child{display:flex;flex-direction:column;gap:6px;align-items:flex-start}.ord-h b{font-size:18px}
+.evf h3 small{font-weight:400}
+.ord-h{flex-wrap:wrap}.ord-h>div:last-child{min-width:0;flex:1}.ord-h .st{white-space:normal;line-height:1.5}
+.ord .ord-t .thumb{--ew:110px!important}
+.pal{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pal button{display:flex;align-items:center;gap:3px;border:1px solid var(--a-line);background:#fff;border-radius:999px;padding:6px 10px 6px 12px;cursor:pointer;font-size:13px}
+.pal i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.12);display:inline-block}.pal span{margin-inline-start:4px}
+.f input[type=range]{padding:0;min-height:30px;accent-color:var(--a-acc2);border:0;background:none}
+.rv{color:var(--a-acc2)}
 /* ===================== EXPERIENCE ===================== */
 .xp{position:fixed;inset:0;z-index:50;overflow:hidden;--ew:min(84vw,380px);color:var(--ink);font-family:var(--fb);direction:rtl;-webkit-tap-highlight-color:transparent}
 .xp.in-frame{position:absolute;--ew:250px}
@@ -416,6 +430,45 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 .t-pearl{box-shadow:0 0 0 1px rgba(0,0,0,.06);border-radius:.25em}
 .t-pearl .env-pocket{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 68' preserveAspectRatio='none'%3E%3Cpath d='M0 68 L50 36.7 L100 68' fill='none' stroke='rgba(0,0,0,.16)' stroke-width='.35'/%3E%3C/svg%3E") 0 0/100% 100%,linear-gradient(180deg,#fff,#efeef2)}
+/* pop (fun) envelope */
+.t-pop{filter:drop-shadow(.18em .18em 0 rgba(0,0,0,.85))}
+.t-pop .env-back,.t-pop .env-pocket,.t-pop .flap-in{outline:none}
+.t-pop .env-pocket{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 68' preserveAspectRatio='none'%3E%3Cpath d='M0 68 L50 36.7 L100 68' fill='none' stroke='%23000' stroke-opacity='.75' stroke-width='.9'/%3E%3C/svg%3E") 0 0/100% 100%,radial-gradient(circle at 20% 80%,rgba(255,255,255,.35) 0 6%,transparent 7%) 0 0/2.2em 2.2em,var(--env)}
+.t-pop .flap-in{background:radial-gradient(circle,rgba(255,255,255,.35) 0 18%,transparent 20%) 0 0/1.6em 1.6em,var(--env)}
+.sticker{left:50%;top:58%;width:30%;aspect-ratio:1;z-index:6;transform:translate(-50%,-50%) rotate(-12deg);border-radius:50%;background:var(--seal);border:.14em solid #111;display:grid;place-items:center;box-shadow:.12em .12em 0 #111;transition:transform .45s cubic-bezier(.3,1.8,.5,1),opacity .3s .2s}
+.sticker span{font-family:var(--fd);font-size:.95em;color:#111;line-height:1;text-align:center;padding:0 .2em}
+.xp:not(.opening) .sticker{animation:stk 1.4s ease-in-out infinite}
+@keyframes stk{0%,100%{transform:translate(-50%,-50%) rotate(-12deg) scale(1)}50%{transform:translate(-50%,-50%) rotate(8deg) scale(1.1)}}
+.zap{position:absolute;z-index:7;width:12%;height:4%;background:#111;border-radius:2em;opacity:0;transition:opacity .2s,transform .5s}
+.z1{left:-6%;top:12%;transform:rotate(-25deg)}.z2{right:-6%;top:18%;transform:rotate(25deg)}.z3{left:44%;top:-10%;transform:rotate(90deg)}
+.s-wiggle{animation:wiggle .65s cubic-bezier(.36,.07,.19,.97)}
+@keyframes wiggle{0%{transform:scale(1)}15%{transform:scale(1.08,.9) rotate(-4deg)}30%{transform:scale(.92,1.1) rotate(4deg) translateY(-8%)}45%{transform:scale(1.06,.94) rotate(-3deg)}60%{transform:scale(.97,1.04) rotate(2deg)}100%{transform:scale(1)}}
+.s-wiggle .zap{opacity:1}
+.s-pop .sticker{transform:translate(-50%,-260%) rotate(40deg) scale(1.6);opacity:0}
+.s-pop .zap{opacity:0}
+.t-pop .env-flap{transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.t-pop .env-card{transition:transform .9s cubic-bezier(.3,1.6,.45,1)}
+/* fun ornaments */
+.orn-dots{display:flex;gap:8px;align-items:center;justify-content:center}.orn-dots i{border-radius:50%;display:block}
+.f-dots{border:3px dashed color-mix(in srgb,var(--acc) 70%,transparent);border-radius:18px}
+.xp[data-env=pop] .card-full{border-radius:18px;box-shadow:8px 8px 0 #111}
+.xp[data-env=pop] .names{text-shadow:3px 3px 0 color-mix(in srgb,var(--acc) 25%,transparent)}
+/* particles: hearts & confetti */
+.p-hearts{top:auto;bottom:-4%;width:calc(16px*var(--s));height:calc(14px*var(--s));background:var(--acc);clip-path:polygon(50% 100%,8% 52%,0 30%,6% 10%,24% 0,40% 4%,50% 18%,60% 4%,76% 0,94% 10%,100% 30%,92% 52%);animation-name:rise}
+.p-confetti{width:calc(8px*var(--s));height:calc(14px*var(--s));background:hsl(var(--h),85%,58%);border-radius:2px}
+/* dancing couple */
+.dance{width:calc(min(78%,250px)*var(--dsz,1));margin:2px auto -4px;position:relative}
+.dance::before{content:"";position:absolute;left:10%;right:10%;bottom:2%;height:10%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--acc) 22%,transparent),transparent)}
+.dance-svg{display:block;width:100%;height:auto;overflow:visible}
+.dance-svg .ln{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dance-svg .main{stroke:var(--acc);stroke-width:1.5}
+.dance-svg .ghost{stroke:var(--acc);stroke-width:3.2;opacity:.12;transform:translate(.6px,.8px)}
+.dance-svg{clip-path:inset(0 0 calc(var(--draw,1)*100%) 0)}
+.dance-svg .main{filter:drop-shadow(0 0 1.5px color-mix(in srgb,var(--acc) 40%,transparent))}
+.settled .cf-in>.dance{transition-delay:0s}
+.dance-svg .main .thin{stroke-width:.8;opacity:.75}
+.dance-svg [data-k=bVeil]{opacity:.5}
+.dance-svg .ghost .thin{opacity:.5}
 </style>
 </head>
 <body>
@@ -568,13 +621,14 @@ const ENVELOPES = {
   shine: { ar: "ظرف بانعكاس ضوئي", en: "Light sheen" },
   pearl: { ar: "ظرف لؤلؤي هادئ", en: "Pearl calm" },
   botanical: { ar: "ظرف بغصن نباتي", en: "Botanical sprig" },
-  corners: { ar: "ظرف تنفتح أطرافه الأربعة", en: "Four-corner fold" }
+  corners: { ar: "ظرف تنفتح أطرافه الأربعة", en: "Four-corner fold" },
+  pop: { ar: "ظرف مرح يقفز وينفجر بالفرح", en: "Pop & bounce" }
 };
-const ORNAMENTS = { "gold-frame": "إطار ذهبي ملكي", roses: "ورود ناعمة", "deco": "خطوط فاخرة (آرت ديكو)", pearls: "عقد لؤلؤ", leaves: "أغصان نباتية", classic: "زخرفة كلاسيكية" };
+const ORNAMENTS = { dots: "نقاط ملونة مرحة", "gold-frame": "إطار ذهبي ملكي", roses: "ورود ناعمة", "deco": "خطوط فاخرة (آرت ديكو)", pearls: "عقد لؤلؤ", leaves: "أغصان نباتية", classic: "زخرفة كلاسيكية" };
 const TRANSITIONS = { rise: "ارتفاع البطاقة", unfold: "انفراد البطاقة", fade: "ظهور ناعم" };
-const PARTICLES = { gold: "غبار ذهبي", petals: "بتلات ورد", sparkle: "لمعات", leaves: "أوراق خضراء", none: "بدون" };
+const PARTICLES = { hearts: "قلوب", confetti: "قصاصات ملونة (كونفيتي)", gold: "غبار ذهبي", petals: "بتلات ورد", sparkle: "لمعات", leaves: "أوراق خضراء", none: "بدون" };
 const MUSIC = { musicbox: "صندوق موسيقى (مدمجة)", harp: "هارب ناعم (مدمجة)", piano: "بيانو هادئ (مدمجة)", file: "ملف صوتي من جوالك", url: "رابط مباشر لملف MP3", none: "بدون موسيقى" };
-const FONTS_AR = ["Aref Ruqaa", "Amiri", "Reem Kufi", "El Messiri", "Lateef", "Noto Naskh Arabic", "Cairo", "Marhey"];
+const FONTS_AR = ["Aref Ruqaa", "Amiri", "Reem Kufi", "El Messiri", "Lateef", "Noto Naskh Arabic", "Cairo", "Marhey", "Lalezar", "Reem Kufi Fun", "Changa"];
 const FONTS_LAT = ["Cormorant Garamond", "Great Vibes", "Playfair Display", "Pinyon Script", "Italiana"];
 
 const BUILTIN_TEMPLATES = [
@@ -603,7 +657,50 @@ const BUILTIN_TEMPLATES = [
       colors: { bg: "#2a0e14", env: "#6e1a2a", envDark: "#4a0f1b", paper: "#fbf4ea", accent: "#c9a456", ink: "#4a1420", seal: "#c9a456" },
       fonts: { display: "Amiri", body: "Amiri", latin: "Playfair Display" } } }
 ];
-BUILTIN_TEMPLATES.forEach(t => { t.builtin = true; t.showInGallery = true; });
+const CATS = { classic: "كلاسيكية هادئة", bridal: "عرائس طبيعية", passion: "حماس وشغف", fun: "خارج المألوف ومرحة" };
+const T_ = (id, order, cat, nameEn, nameAr, desc, envelope, ornament, transition, particles, music, colors, fonts, text) =>
+  ({ id, order, cat, nameEn, nameAr, desc, design: { envelope, ornament, transition, particles, music, colors, fonts }, ...(text ? { text } : {}) });
+BUILTIN_TEMPLATES.push(
+  { id: "eternal-waltz", order: 0, cat: "bridal", nameEn: "Eternal Waltz", nameAr: "رقصة العمر",
+    desc: "لوحة فنية حيّة: عروسان مرسومان بخطوط ذهبية رفيعة يرقصان على أنغام الموسيقى، ثم تثبت الرقصة كلوحة مع آخر نغمة.",
+    design: { envelope: "seal", ornament: "gold-frame", transition: "fade", particles: "sparkle", music: "url", musicUrl: "naghm2.mp3", musicLoop: false,
+      dance: { on: true, pos: "top", size: 1, speed: 1 },
+      colors: { bg: "#efe7da", env: "#f5ecdd", envDark: "#d8c6a6", paper: "#fffaf2", accent: "#b08d4f", ink: "#3f3322", seal: "#b08d4f" },
+      fonts: { display: "Aref Ruqaa", body: "Amiri", latin: "Great Vibes" } } },
+  // ---- classic & calm
+  T_("antique-gold", 7, "classic", "Antique Gold", "الذهبي العتيق", "ظرف بلون الشمبانيا بختم عتيق، وبطاقة كلاسيكية هادئة بإطار مزخرف.", "seal", "classic", "fade", "gold", "piano",
+    { bg: "#e9e1d2", env: "#e6d8bd", envDark: "#c9b48e", paper: "#fbf6ea", accent: "#a88a4a", ink: "#3b3020", seal: "#8a6d35" }, { display: "Amiri", body: "Amiri", latin: "Cormorant Garamond" }),
+  T_("navy-classic", 8, "classic", "Navy Classic", "الكحلي الكلاسيكي", "ظرف كحلي تنفتح أطرافه بهدوء، وبطاقة عاجية بإطار ذهبي رصين.", "corners", "gold-frame", "unfold", "sparkle", "piano",
+    { bg: "#121a2b", env: "#1f2d4a", envDark: "#152036", paper: "#f8f5ee", accent: "#b8a272", ink: "#1f2d4a", seal: "#b8a272" }, { display: "Amiri", body: "Amiri", latin: "Playfair Display" }),
+  T_("olive-heritage", 9, "classic", "Olive Heritage", "التراث الزيتوني", "ظرف زيتوني بغصن صغير، وبطاقة بطابع تراثي دافئ وهادئ.", "botanical", "classic", "fade", "leaves", "harp",
+    { bg: "#e8e6d8", env: "#8f9468", envDark: "#6f7450", paper: "#faf8ef", accent: "#7a6a3a", ink: "#33321f", seal: "#6f5a2a" }, { display: "Aref Ruqaa", body: "Amiri", latin: "Cormorant Garamond" }),
+  // ---- natural bridal
+  T_("bridal-lace", 10, "bridal", "Bridal Lace", "دانتيل العروس", "ظرف أبيض كفستان العروس، وعقد لؤلؤ وبتلات ورد تتساقط بنعومة.", "pearl", "pearls", "fade", "petals", "harp",
+    { bg: "#f3eeea", env: "#fffdfb", envDark: "#e7dfd8", paper: "#fffefc", accent: "#b39478", ink: "#4a3d33", seal: "#f6efe8" }, { display: "El Messiri", body: "Amiri", latin: "Great Vibes" }),
+  T_("jasmine", 11, "bridal", "Jasmine", "الياسمين", "ظرف أبيض بغصن أخضر، وأغصان تنمو على البطاقة كنسمة ياسمين.", "botanical", "leaves", "rise", "sparkle", "musicbox",
+    { bg: "#eef2ea", env: "#f7f8f2", envDark: "#d9e0cf", paper: "#ffffff", accent: "#6f8f61", ink: "#354030", seal: "#7c9a6e" }, { display: "Aref Ruqaa", body: "Amiri", latin: "Cormorant Garamond" }),
+  T_("rose-garden", 12, "bridal", "Rose Garden", "حديقة الورد", "ظرف وردي بشريط أخضر كساق الوردة، وبطاقة مزينة بالورد الطبيعي.", "ribbon", "roses", "rise", "petals", "harp",
+    { bg: "#f5e9e4", env: "#f7e3dc", envDark: "#e6c3b8", paper: "#fffaf7", accent: "#a8606a", ink: "#4d2f33", seal: "#9fb79a" }, { display: "Aref Ruqaa", body: "Amiri", latin: "Great Vibes" }),
+  // ---- passion
+  T_("crimson-passion", 13, "passion", "Crimson Passion", "القرمزي المتّقد", "ظرف أحمر قرمزي بختم ذهبي ينكسر، وقلوب تتطاير مع خروج البطاقة.", "seal", "deco", "unfold", "hearts", "piano",
+    { bg: "#1a0507", env: "#8e0f1e", envDark: "#5c0712", paper: "#fff6ee", accent: "#c8963a", ink: "#5c0712", seal: "#d4a347" }, { display: "Reem Kufi", body: "Amiri", latin: "Playfair Display" }),
+  T_("golden-fire", 14, "passion", "Golden Fire", "اللهب الذهبي", "ظرف داكن يلمع عليه وهج ذهبي متّقد، وبطاقة ليلية بشرارات من نور.", "shine", "deco", "rise", "gold", "musicbox",
+    { bg: "#120904", env: "#2a1408", envDark: "#170a04", paper: "#1a0e06", accent: "#f0a63a", ink: "#ffe9c4", seal: "#f0a63a" }, { display: "Reem Kufi", body: "Amiri", latin: "Italiana" }),
+  T_("ruby-heart", 15, "passion", "Ruby Heart", "قلب الياقوت", "ظرف ياقوتي تنفتح أطرافه بشغف، وبطاقة بالورد وقلوب ترتفع.", "corners", "roses", "unfold", "hearts", "harp",
+    { bg: "#3a0a1a", env: "#b0123f", envDark: "#7a0b2b", paper: "#fff5f7", accent: "#c0303f", ink: "#6a0f2a", seal: "#e0b04a" }, { display: "Aref Ruqaa", body: "Amiri", latin: "Great Vibes" }),
+  // ---- fun
+  T_("pop-party", 16, "fun", "Pop Party", "حفلة البوب", "ظرف وردي فاقع يقفز ويهتز قبل ما ينفجر بالكونفيتي، بعبارات مرحة تضحّك.", "pop", "dots", "rise", "confetti", "musicbox",
+    { bg: "#ffe066", env: "#ff5fa2", envDark: "#d93d80", paper: "#fffdf5", accent: "#ff3d7f", ink: "#2b1d4a", seal: "#4dd0e1" }, { display: "Lalezar", body: "Cairo", latin: "Great Vibes" },
+    { opening: "📢 إعلان رسمي", inviteText: "بعد مفاوضات طويلة… وافقت أخيرًا! ويسعدنا حضوركم حفل الزفاف", closing: "حضوركم إجباري… والأعذار غير مقبولة 😄" }),
+  T_("candy-pop", 17, "fun", "Candy", "الحلوى", "ظرف بألوان الحلوى وشريط بنفسجي، ونكهة مرحة من أول لمسة.", "ribbon", "dots", "rise", "confetti", "musicbox",
+    { bg: "#c9f2ec", env: "#ffb6c9", envDark: "#f08aa8", paper: "#ffffff", accent: "#7b5cff", ink: "#3a2c6e", seal: "#7b5cff" }, { display: "Marhey", body: "Cairo", latin: "Great Vibes" },
+    { opening: "🍬 خبر أحلى من الحلا", inviteText: "قررنا نكمّل الحكاية سوا، ونبيكم معنا في ليلة الفرح", closing: "تعالوا جوعانين… البوفيه بانتظاركم 😋" }),
+  T_("comic-love", 18, "fun", "Comic Love", "كوميك", "ظرف بطابع القصص المصورة يقفز ويضحك، وقلوب كرتونية تتطاير.", "pop", "dots", "rise", "hearts", "musicbox",
+    { bg: "#4fc3f7", env: "#ffd54f", envDark: "#f9a825", paper: "#fffef7", accent: "#e53935", ink: "#1a1a1a", seal: "#e53935" }, { display: "Lalezar", body: "Cairo", latin: "Great Vibes" },
+    { opening: "💥 عاجل جدًا", inviteText: "تم القبض على قلب العروس! والحكم: زواج مؤبد… ويسعدنا حضوركم", closing: "الحضور بدون رقص… ممنوع 💃" })
+);
+const CAT_OF = { "royal-ivory": "classic", "burgundy-elegance": "classic", "blush-rose": "bridal", "pearl-white": "bridal", "sage-garden": "bridal", "midnight-luxury": "passion" };
+BUILTIN_TEMPLATES.forEach(t => { t.builtin = true; t.showInGallery = true; t.cat = t.cat || CAT_OF[t.id] || "classic"; });
 
 const SAMPLE_EVENT = {
   bride: "سارة", groom: "عبدالله", hosts: "يتشرف آل فلان وآل فلان",
@@ -657,9 +754,11 @@ const ORN = {
   wax(fill, text, font) { return `<svg viewBox="0 0 100 100"><defs><radialGradient id="wx" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".35" stop-color="${fill}"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></radialGradient></defs><path d="M50 3 C60 5 66 1 74 8 C82 14 92 14 95 26 C98 36 96 44 98 52 C99 62 92 68 90 78 C86 88 76 90 68 95 C58 99 50 96 42 98 C32 98 24 92 17 86 C9 80 4 70 3 60 C2 50 6 42 4 32 C5 22 14 16 22 10 C30 4 40 4 50 3Z" fill="${fill}"/><path d="M50 3 C60 5 66 1 74 8 C82 14 92 14 95 26 C98 36 96 44 98 52 C99 62 92 68 90 78 C86 88 76 90 68 95 C58 99 50 96 42 98 C32 98 24 92 17 86 C9 80 4 70 3 60 C2 50 6 42 4 32 C5 22 14 16 22 10 C30 4 40 4 50 3Z" fill="url(#wx)"/><circle cx="50" cy="50" r="31" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="2.2"/><circle cx="50" cy="50" r="27" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="50" y="58" text-anchor="middle" font-family="${font}" font-size="24" fill="rgba(0,0,0,.35)">${esc(text)}</text><text x="49.3" y="57.2" text-anchor="middle" font-family="${font}" font-size="24" fill="rgba(255,255,255,.55)">${esc(text)}</text></svg>`; }
 };
 
+function dotsRow(d, n = 9) { const cols = [d.colors.accent, d.colors.seal || d.colors.accent, d.colors.env, d.colors.envDark]; return `<div class="orn-dots">${Array.from({ length: n }, (_, i) => `<i style="background:${cols[i % cols.length]};width:${8 + (i % 3) * 4}px;height:${8 + (i % 3) * 4}px"></i>`).join("")}</div>`; }
 function ornamentTop(d) {
   const c = d.colors.accent;
   switch (d.ornament) {
+    case "dots": return dotsRow(d);
     case "roses": return ORN.roseRow(c, d.colors.envDark);
     case "leaves": return `<div class="orn-vine">${ORN.vine(c)}</div>`;
     case "pearls": return `<div class="orn-pearls">${ORN.pearls(c)}</div>`;
@@ -673,6 +772,7 @@ function ornamentFrame(d) {
   if (d.ornament === "deco") return `<div class="frame f-deco"></div>`;
   if (d.ornament === "roses") return `<div class="frame f-roses"><i class="rc tl">${ORN.rose(c, d.colors.envDark)}</i><i class="rc br">${ORN.rose(c, d.colors.envDark)}</i></div>`;
   if (d.ornament === "leaves") return `<div class="frame f-leaves"><i class="vc top">${ORN.vine(c)}</i><i class="vc bot">${ORN.vine(c)}</i></div>`;
+  if (d.ornament === "dots") return `<div class="frame f-dots"></div>`;
   return `<div class="frame f-${d.ornament}"></div>`;
 }
 
@@ -689,6 +789,7 @@ function envelopeHTML(d, ev) {
   if (t === "ribbon") deco = `<div class="rib v1"></div><div class="rib v2"></div><div class="rib h1"></div><div class="rib h2"></div><div class="bow">${ORN.bow(c.seal)}</div>`;
   if (t === "shine") deco = `<div class="gold-lines"></div><div class="emblem">${esc(mono)}</div><div class="sheen"></div>`;
   if (t === "pearl") deco = `<div class="pearl-tip">${ORN.pearls(c.accent)}</div><div class="iris"></div>`;
+  if (t === "pop") deco = `<div class="sticker"><span>افتحيني!</span></div><i class="zap z1"></i><i class="zap z2"></i><i class="zap z3"></i>`;
   if (t === "botanical") deco = `<div class="sprig">${ORN.sprig(c.seal)}</div><div class="twine"></div>`;
   if (t === "corners") {
     return `<div class="env t-corners"><div class="env-back"></div><div class="env-card">${mini}</div>
@@ -710,6 +811,7 @@ const TIMELINE = {
   shine: [["s-sheen", 0], ["s-flap", 700], ["s-under", 1300], ["s-rise", 1400], ["s-reveal", 2800]],
   pearl: [["s-flap", 0], ["s-under", 1100], ["s-rise", 1200], ["s-reveal", 3000]],
   botanical: [["s-sprig", 0], ["s-flap", 500], ["s-under", 1150], ["s-rise", 1250], ["s-reveal", 2700]],
+  pop: [["s-wiggle", 0], ["s-pop", 650], ["s-flap", 850], ["s-under", 1300], ["s-rise", 1350], ["s-reveal", 2500]],
   corners: [["s-crack", 0], ["s-ct", 600], ["s-cb", 950], ["s-cl", 1300], ["s-cr", 1650], ["s-rise", 2300], ["s-reveal", 3500]]
 };
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -778,16 +880,20 @@ const Music = {
       if (kind === "url") return d.musicUrl || null;
       if (kind === "file") return await loadMedia(d.musicFile);
       return this.cache[kind] || (this.cache[kind] = await renderPreset(kind));
-    })().then(u => (this.url = u)).catch(() => null);
+    })().then(u => (this.url = u ? new URL(u, location.href).href : null)).catch(() => null);
+    this.loop = d.musicLoop !== undefined ? !!d.musicLoop : !d.dance?.on;
     return this.ready;
   },
-  play() {  // must be called from a tap
-    if (!this.el) { this.el = new Audio(); this.el.loop = true; this.el.preload = "auto"; this.el.setAttribute("playsinline", ""); }
+  play(defer = false) {  // must be called from a tap; defer = unlock now, start later with begin()
+    if (!this.el) { this.el = new Audio(); this.el.preload = "auto"; this.el.setAttribute("playsinline", ""); }
     try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch { }
-    const el = this.el; this.on = true;
-    if (this.url) { el.src = this.url; el.volume = .7; el.play().catch(() => { }); }
-    else { el.src = SILENT_WAV; el.play().catch(() => { }); this.ready?.then(u => { if (u && this.on) { el.src = u; el.volume = .7; el.play().catch(() => { }); } }); }
+    const el = this.el; this.on = true; this.deferred = defer; if (this.onended) el.onended = this.onended; el.loop = this.loop !== false;
+    const go = (u) => { el.src = u; el.volume = .7; if (this.deferred) { const p = el.play(); (p && p.then ? p : Promise.resolve()).then(() => { if (this.deferred) { el.pause(); el.currentTime = 0; } }).catch(() => { }); } else el.play().catch(() => { }); };
+    if (this.url) go(this.url);
+    else { el.src = SILENT_WAV; el.play().catch(() => { }); this.ready?.then(u => { if (u && this.on) go(u); }); }
   },
+  begin() { if (!this.el) return; this.deferred = false; const st = () => { try { this.el.currentTime = 0; } catch { } this.el.play().catch(() => { }); };
+    if (this.url && this.el.src === this.url) st(); else this.ready?.then(u => { if (u && this.on) { this.el.src = u; st(); } }); },
   resume() { if (this.el && this.url) { this.on = true; this.el.play().catch(() => { }); } },
   stop() { this.on = false; if (this.el) { try { this.el.pause(); } catch { } } }
 };
@@ -818,7 +924,7 @@ function mountExperience(host, spec, hooks = {}) {
     <div class="scene">
       ${guestName ? `<div class="to-guest">إلى: <b>${esc(guestName)}</b></div>` : ""}
       <div class="env-wrap" role="button" tabindex="0" aria-label="افتحي الدعوة">${envelopeHTML(d, ev)}</div>
-      <div class="hint">${d.envelope === "seal" || d.envelope === "corners" ? "المسي الختم لفتح الدعوة" : d.envelope === "ribbon" ? "المسي الشريط لفتح الدعوة" : "المسي الظرف لفتح الدعوة"}</div>
+      <div class="hint">${d.envelope === "pop" ? "يلا افتحيني! 😄" : d.envelope === "seal" || d.envelope === "corners" ? "المسي الختم لفتح الدعوة" : d.envelope === "ribbon" ? "المسي الشريط لفتح الدعوة" : "المسي الظرف لفتح الدعوة"}</div>
     </div>
     <div class="fx"></div>
     <div class="page" aria-hidden="true">
@@ -826,12 +932,14 @@ function mountExperience(host, spec, hooks = {}) {
         ${ornamentFrame(d)}
         <div class="cf-in">
           ${guestName ? `<div class="greet">حيّاكِ الله <b>${esc(guestName)}</b></div>` : ""}
+          ${danceBox(d, "top")}
           ${ev.opening ? `<div class="op-text">${esc(ev.opening)}</div>` : ""}
           ${ornamentTop(d)}
           ${ev.hosts ? `<div class="hosts">${esc(ev.hosts)}</div>` : ""}
           ${ev.inviteText ? `<div class="itext">${esc(ev.inviteText)}</div>` : ""}
           <h1 class="names"><span>${esc(ev.bride || "")}</span>${ev.showGroom !== false && ev.groom ? `<span class="amp">&amp;</span><span>${esc(ev.groom)}</span>` : ""}</h1>
           <div class="sep">${ORN.divider(d.colors.accent)}</div>
+          ${danceBox(d, "middle")}
           ${ev.date ? `<div class="when"><div class="w-side">${esc(dt.weekday)}</div><div class="w-mid"><b>${esc(dt.day)}</b><span>${esc(dt.month)}</span><small>${esc(dt.year)}</small></div><div class="w-side">${esc(fmtTime(ev.time))}</div></div>
           ${dt.hijri ? `<div class="hijri">الموافق ${esc(dt.hijri)}</div>` : ""}` : ""}
           ${ev.venue || ev.city ? `<div class="venue"><b>${esc(ev.venue || "")}</b>${ev.city ? `<span>${esc(ev.city)}</span>` : ""}</div>` : ""}
@@ -839,6 +947,7 @@ function mountExperience(host, spec, hooks = {}) {
             ${ev.mapUrl ? `<a class="pill" href="${esc(safeUrl(ev.mapUrl))}" target="_blank" rel="noopener">موقع الحفل</a>` : ""}
             ${ev.date ? `<a class="pill ics" href="#" >أضيفي للتقويم</a>` : ""}
           </div>
+          ${danceBox(d, "bottom")}
           ${ev.date ? `<div class="count" data-date="${esc(ev.date)}T${esc(ev.time || "20:00")}"></div>` : ""}
           ${ev.closing ? `<div class="closing">${esc(ev.closing)}</div>` : ""}
           ${ev.notes ? `<div class="notes">${esc(ev.notes)}</div>` : ""}
@@ -853,8 +962,10 @@ function mountExperience(host, spec, hooks = {}) {
   const xp = $(".xp", host), wrap = $(".env-wrap", xp), env = $(".env", xp), musicBtn = $(".xp-music", xp);
   let opened = false; const timers = [];
   Music.stop(); const hasMusic = d.music && d.music !== "none"; if (hasMusic) Music.prepare(d);
-  const startMusic = () => { if (!hasMusic) return; Music.play(); musicBtn.hidden = false; musicBtn.classList.add("on"); };
-  musicBtn.onclick = () => { if (Music.on) { Music.stop(); musicBtn.classList.remove("on"); } else { Music.url ? Music.resume() : Music.play(); musicBtn.classList.add("on"); } };
+  const dancing = !!d.dance?.on; let stopDance = () => { };
+  const startMusic = () => { if (!hasMusic) return; Music.play(dancing); musicBtn.hidden = false; musicBtn.classList.add("on"); };
+  Music.onended = () => { musicBtn.classList.remove("on"); musicBtn.textContent = "↺"; Music.on = false; };
+  musicBtn.onclick = () => { musicBtn.textContent = "♪"; if (Music.on) { Music.stop(); musicBtn.classList.remove("on"); } else { Music.url ? Music.resume() : Music.play(); musicBtn.classList.add("on"); } };
   const open = () => {
     if (opened) return; opened = true; xp.classList.add("opening"); startMusic();
     const tl = TIMELINE[d.envelope] || TIMELINE.pearl;
@@ -863,6 +974,7 @@ function mountExperience(host, spec, hooks = {}) {
   };
   const reveal = () => {
     xp.classList.add("revealed"); $(".page", xp).setAttribute("aria-hidden", "false");
+    if (dancing) { if (hasMusic) Music.begin(); stopDance = startDance(xp, d, true); }
     timers.push(setTimeout(() => { xp.classList.add("settled"); particles(); }, 900));
   };
   wrap.addEventListener("click", open);
@@ -885,7 +997,7 @@ function mountExperience(host, spec, hooks = {}) {
     const fx = $(".fx", xp); const n = spec.mode === "preview" ? 10 : 16; let h = "";
     for (let i = 0; i < n; i++) {
       const x = Math.random() * 100, dl = Math.random() * 6, du = 7 + Math.random() * 6, s = .6 + Math.random() * .9;
-      h += `<i class="p p-${kind}" style="left:${x}%;animation-delay:${dl}s;animation-duration:${du}s;--s:${s}"></i>`;
+      h += `<i class="p p-${kind}" style="left:${x}%;animation-delay:${dl}s;animation-duration:${du}s;--s:${s};--h:${Math.floor(Math.random() * 360)}"></i>`;
     }
     fx.innerHTML = h;
   };
@@ -893,8 +1005,13 @@ function mountExperience(host, spec, hooks = {}) {
   const rsEl = $(".rsvp", xp);
   if (rsEl) renderRsvp(rsEl, spec, hooks);
   if (spec.autoOpen) setTimeout(open, 300);
-  function destroy() { timers.forEach(clearTimeout); clearInterval(cTimer); Music.stop(); }
+  function destroy() { timers.forEach(clearTimeout); clearInterval(cTimer); stopDance(); Music.stop(); }
   return { destroy, open };
+}
+function danceBox(d, pos) {
+  if (!d.dance?.on || (d.dance.pos || "top") !== pos) return "";
+  const sz = Math.max(.5, Math.min(1.4, +(d.dance.size ?? 1) || 1));
+  return `<div class="dance" style="--dsz:${sz}">${danceSVG()}</div>`;
 }
 function safeUrl(u) { try { const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : "#"; } catch { return "#"; } }
 
@@ -947,6 +1064,133 @@ function renderRsvp(el, spec, hooks) {
   };
   prev ? done(prev) : form();
 }
+/* ===================== DANCING COUPLE (line-art SVG, driven by the music clock) ===================== */
+const DANCE_POS = { top: "أعلى البطاقة", middle: "بين الأسماء والتاريخ", bottom: "أسفل تفاصيل المناسبة" };
+const smooth = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+const bump = (u, a, b) => smooth(a, a + (b - a) * .3, u) * (1 - smooth(a + (b - a) * .7, b, u));
+const f1 = (n) => Math.round(n * 10) / 10;
+function ik(S, H, L1, L2, bend) {
+  let dx = H[0] - S[0], dy = H[1] - S[1], d = Math.hypot(dx, dy) || .001;
+  const dd = Math.min(d, L1 + L2 - .01); const a = (L1 * L1 - L2 * L2 + dd * dd) / (2 * dd); const h = Math.sqrt(Math.max(0, L1 * L1 - a * a));
+  const ux = dx / d, uy = dy / d; const P = [S[0] + ux * a, S[1] + uy * a];
+  return [P[0] - uy * h * bend, P[1] + ux * h * bend];
+}
+const thru = (A, M, B) => `M${f1(A[0])} ${f1(A[1])}Q${f1(2 * M[0] - (A[0] + B[0]) / 2)} ${f1(2 * M[1] - (A[1] + B[1]) / 2)} ${f1(B[0])} ${f1(B[1])}`;
+const arm = (A, E, B) => `M${f1(A[0])} ${f1(A[1])}Q${f1(E[0])} ${f1(E[1])} ${f1(B[0])} ${f1(B[1])}`;
+const circ = (c, r) => `M${f1(c[0] - r)} ${f1(c[1])}a${r} ${r} 0 1 0 ${f1(r * 2)} 0a${r} ${r} 0 1 0 ${f1(-r * 2)} 0`;
+
+/* pose for normalised time u (0..1) and wall time T (seconds × speed) */
+function dancePose(u, T) {
+  const E = 1 - smooth(.8, 1, u);                    // motion amplitude, fades to the final still pose
+  const w = 2 * Math.PI * T / 3.8;
+  const tw = bump(u, .4, .64);                        // bride's twirl window
+  const emb = smooth(.62, .9, u);                     // embrace at the end
+  return {
+    sway: Math.sin(w) * 7 * E, bob: Math.abs(Math.sin(w)) * 2.2 * E,
+    turn: Math.sin(2 * Math.PI * T / 9.5) * .28 * E,
+    step: Math.sin(w) * E * (1 - tw),
+    tw, spin: 2 * Math.PI * smooth(.45, .6, u), emb,
+    dist: 44 + 18 * tw - 10 * emb,
+    lean: Math.sin(w + .6) * 2.2 * E,
+    dressLag: Math.sin(w - .9) * 6 * E + Math.sin(2 * Math.PI * T / 1.7) * 1.4 * E,
+    intro: smooth(0, .07, u)
+  };
+}
+function danceGeometry(p) {
+  const cx = 100, cosT = Math.cos(p.turn);
+  const X = (x) => cx + (x - cx) * cosT;
+  const P = (x, y) => `${f1(X(x))} ${f1(y)}`;
+  const gx = cx - p.dist / 2 + p.sway, bx = cx + p.dist / 2 + p.sway, by0 = p.bob;
+  const o = {};
+  // ================= groom (faces right / toward the bride) =================
+  const gl = p.lean + 3 * p.emb, gy = (y) => y - by0;
+  const gHead = [X(gx + 3 + gl), gy(36)];
+  o.gHead = circ(gHead, 10);
+  o.gHair = `M${f1(gHead[0] - 10)} ${f1(gHead[1] + 1)}C${f1(gHead[0] - 11)} ${f1(gHead[1] - 12)} ${f1(gHead[0] + 2)} ${f1(gHead[1] - 14)} ${f1(gHead[0] + 9)} ${f1(gHead[1] - 6)}`;
+  const sh = 16;   // half shoulder width
+  const gSf = [X(gx - sh + gl * .5), gy(60)], gSn = [X(gx + sh + gl * .5), gy(60)];
+  o.gBody =
+    `M${P(gx + gl * .7 - 1, gy(46))}L${P(gx + gl * .6 - 1, gy(54))}` +                                     // neck
+    `M${f1(gSf[0])} ${f1(gSf[1])}Q${P(gx + gl * .5, gy(55))} ${f1(gSn[0])} ${f1(gSn[1])}` +                    // shoulders
+    `M${f1(gSf[0])} ${f1(gSf[1])}C${P(gx - 17, gy(80))} ${P(gx - 12, gy(100))} ${P(gx - 11, gy(112))}L${P(gx - 15, gy(142))}` +   // jacket left
+    `M${f1(gSn[0])} ${f1(gSn[1])}C${P(gx + 17, gy(80))} ${P(gx + 12, gy(100))} ${P(gx + 11, gy(112))}L${P(gx + 15, gy(142))}` +   // jacket right
+    `M${P(gx - 15, gy(142))}Q${P(gx - 6, gy(140))} ${P(gx - 1, gy(130))}M${P(gx + 15, gy(142))}Q${P(gx + 6, gy(140))} ${P(gx + 1, gy(130))}`; // hem split
+  o.gDetail =
+    `M${P(gx - 6 + gl * .4, gy(58))}L${P(gx + gl * .2, gy(96))}L${P(gx + 6 + gl * .4, gy(58))}` +            // lapels
+    `M${P(gx + gl * .2, gy(96))}L${P(gx + gl * .1, gy(130))}` +                                               // button line
+    `M${P(gx - 4, gy(61))}L${P(gx + 4, gy(65))}M${P(gx + 4, gy(61))}L${P(gx - 4, gy(65))}` +                  // bow tie
+    `M${P(gx + 7, gy(74))}l3 -2`;                                                                             // pocket square
+  const st = p.step;
+  const leg = (hx, kx, fx, w) => `M${P(hx - w, gy(140))}Q${P(kx - w, gy(192))} ${P(fx - w * .8, 243)}M${P(hx + w, gy(140))}Q${P(kx + w, gy(192))} ${P(fx + w * .8, 243)}`;
+  const fF = gx + 8 + st * 10, fB = gx - 8 - st * 7;
+  o.gLegs = leg(gx + 6, gx + 7 + st * 6, fF, 4.6) + leg(gx - 6, gx - 7 - st * 4, fB, 4.6) +
+    `M${P(fF - 5, 245)}Q${P(fF + 2, 241)} ${P(fF + 10, 245)}M${P(fB - 8, 245)}Q${P(fB - 1, 241)} ${P(fB + 5, 245)}`;
+  // ================= bride (faces left / toward the groom) =================
+  const sc = Math.cos(p.spin), bl = -p.lean * .8 - 3.5 * p.emb, byy = (y) => y - by0;
+  const BX = (dx) => X(bx + dx * sc), BP = (dx, y) => `${f1(BX(dx))} ${f1(y)}`;
+  const bHead = [BX(-2 + bl), byy(50) + 2 * p.emb];
+  o.bHead = circ(bHead, 8.8) + circ([BX(5 + bl), byy(43)], 4.6);
+  o.bBody =
+    `M${BP(-1 + bl * .6, byy(59))}L${BP(-1 + bl * .6, byy(66))}` +                                          // neck
+    `M${BP(-12, byy(70))}Q${BP(-6, byy(67))} ${BP(-1, byy(70))}Q${BP(4, byy(67))} ${BP(11, byy(70))}` +      // shoulders / neckline
+    `M${BP(-10, byy(74))}Q${BP(-4, byy(80))} ${BP(0, byy(76))}Q${BP(4, byy(80))} ${BP(9, byy(74))}` +        // sweetheart bodice
+    `M${BP(-10, byy(74))}Q${BP(-8, byy(92))} ${BP(-6, byy(104))}M${BP(9, byy(74))}Q${BP(8, byy(92))} ${BP(6, byy(104))}` +
+    `M${BP(-6, byy(104))}Q${BP(0, byy(107))} ${BP(6, byy(104))}`;
+  const fl = 52 + p.tw * 18 * (.6 + .4 * Math.abs(Math.sin(p.spin)));
+  const lag = p.dressLag + p.tw * 9 * Math.sin(p.spin * 2), train = 14 * (1 - p.tw);
+  const hL = [X(bx - fl * (.5 + .35 * p.tw) + lag), 246 - p.tw * 6], hR = [X(bx + fl + train + lag), 247 - p.tw * 12];
+  o.bDress =
+    `M${BP(-6, byy(104))}C${P(bx - 12 + lag * .2, 150)} ${P(bx - fl * (.38 + .25 * p.tw) + lag * .6, 205)} ${f1(hL[0])} ${f1(hL[1])}` +
+    `M${BP(6, byy(104))}C${P(bx + 18 + lag * .2, 150)} ${P(bx + fl * .75 + lag * .6, 205)} ${f1(hR[0])} ${f1(hR[1])}` +
+    `M${f1(hL[0])} ${f1(hL[1])}Q${P(bx - fl * .4 + lag, 252 + p.dressLag * .35)} ${P(bx + lag * .9, 247)}T${f1(hR[0])} ${f1(hR[1])}`;
+  o.bFolds = [-.3, .05, .4, .75].map((k, i) => `M${BP(k * 8, byy(108))}Q${P(bx + k * fl * .45 + lag * .5, 182)} ${P(bx + k * fl * .9 + lag * (1 + i * .1), 241 - Math.abs(k) * 3)}`).join("");
+  const vEnd = [BX(26 + p.dressLag * .9 + p.tw * 14), 196 - p.tw * 30];
+  o.bVeil = `M${BP(8 + bl, byy(41))}C${BP(24 + bl, 70)} ${BP(20 + p.dressLag * .5, 130)} ${f1(vEnd[0])} ${f1(vEnd[1])}` +
+            `M${BP(9 + bl, byy(46))}C${BP(18 + bl, 80)} ${BP(14 + p.dressLag * .4, 140)} ${f1(vEnd[0] - 6)} ${f1(vEnd[1] + 6)}`;
+  // ================= arms & hold =================
+  // joined hands sit between them at chest height, rise above her head for the twirl, settle low in the embrace
+  const hold = [X(cx + p.sway + 2 + p.tw * p.dist * .3), gy(74) - p.tw * 66 + p.emb * 18];
+  const gE = ik(gSn, hold, 30, 28, 1); o.gArm = arm(gSn, gE, hold);                       // his near arm holds her hand
+  const bSn = [BX(-11), byy(71)], bSf = [BX(10), byy(71)];
+  const bE = ik(bSn, hold, 25, 24, -1); o.bArm = arm(bSn, bE, hold);                       // her hand in his
+  o.hands = circ(hold, 2.4);
+  // his other hand rests on her back (hint only), released during the twirl
+  o.gArm2 = `M${BP(7, byy(90))}q${f1(4 * sc)} 4 ${f1(2 * sc)} 13M${BP(9, byy(92))}q${f1(3 * sc)} 2 ${f1(2 * sc)} 6`;
+  o.gArm2Op = 1 - p.tw;
+  // her free arm falls gracefully, holding the gown; it opens out while she turns
+  const restHand = [BX(17 + p.tw * 16), byy(118) - p.tw * 30];
+  const bE2 = ik(bSf, restHand, 25, 24, 1); o.bArm2 = arm(bSf, bE2, restHand);
+  return o;
+}
+const DANCE_KEYS = ["bVeil", "gLegs", "gBody", "gDetail", "gHead", "gHair", "gArm", "bDress", "bFolds", "bBody", "bHead", "bArm", "bArm2", "gArm2", "hands"];
+const DANCE_THIN = new Set(["bFolds", "bVeil", "gDetail", "gHair"]);
+function danceSVG() {
+  return `<svg class="dance-svg" viewBox="0 -6 200 262" aria-hidden="true"><g class="ln ghost">${DANCE_KEYS.map(k => `<path data-k="${k}"${DANCE_THIN.has(k) ? ' class="thin"' : ""}/>`).join("")}</g><g class="ln main">${DANCE_KEYS.map(k => `<path data-k="${k}"${DANCE_THIN.has(k) ? ' class="thin"' : ""}/>`).join("")}</g></svg>`;
+}
+/* drives the drawing from the music clock; returns stop() */
+function startDance(root, d, startClock) {
+  const svg = $(".dance-svg", root); if (!svg) return () => { };
+  const paths = {}; DANCE_KEYS.forEach(k => paths[k] = $$(`[data-k=${k}]`, svg));
+  const speed = Math.max(.4, Math.min(1.8, +(d.dance?.speed ?? 1) || 1));
+  let raf = 0, clock0 = null, lastT = -1;
+  const useAudio = () => d.music && d.music !== "none" && Music.el && Music.url && Music.el.src === Music.url;
+  const frame = () => {
+    raf = requestAnimationFrame(frame);
+    let t, D;
+    if (useAudio()) { t = Music.el.currentTime || 0; D = isFinite(Music.el.duration) && Music.el.duration > 1 ? Music.el.duration : 32; if (Music.el.ended) t = D; }
+    else { if (clock0 === null) clock0 = startClock ? performance.now() : null; t = clock0 === null ? 0 : (performance.now() - clock0) / 1000; D = 32; }
+    t = Math.min(t, D);
+    if (Math.abs(t - lastT) < 1 / 90 && lastT >= 0) return;   // paused → frozen in place
+    lastT = t;
+    const g = danceGeometry(dancePose(t / D, t * speed));
+    for (const k of DANCE_KEYS) for (const el of paths[k]) el.setAttribute("d", g[k]);
+    for (const el of paths.gArm2) el.style.opacity = g.gArm2Op;
+    // line-art draw-in during the first seconds
+    const di = Math.min(1, t / 2.6); svg.style.setProperty("--draw", String(1 - di * di * (3 - 2 * di)));
+  };
+  frame();
+  return () => cancelAnimationFrame(raf);
+}
 /* ===================== APP STATE ===================== */
 let S = null;                 // store
 const SITE = { brandName: "دعوة", tagline: "دعوات زفاف رقمية فاخرة", whatsapp: "" };
@@ -990,11 +1234,13 @@ document.addEventListener("click", e => { const a = e.target.closest("[data-a=lo
 async function loadSite() { try { const s = await S.get("config/site"); if (s) Object.assign(SITE, s); } catch { } document.title = SITE.brandName; }
 async function getTemplates(onlyGallery = false) {
   let t = []; try { t = await S.list("templates"); } catch { }
-  if (!t.length) t = clone(BUILTIN_TEMPLATES);
+  const have = new Set(t.map(x => x.id));
+  t = t.map(x => ({ ...x, cat: x.cat || BUILTIN_TEMPLATES.find(b => b.id === x.id)?.cat || "classic", text: x.text || BUILTIN_TEMPLATES.find(b => b.id === x.id)?.text }));
+  for (const b of BUILTIN_TEMPLATES) if (!have.has(b.id)) t.push(clone(b));
   t.sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
   return onlyGallery ? t.filter(x => x.showInGallery !== false) : t;
 }
-async function getTemplate(id) { let t = null; try { t = await S.get("templates/" + id); } catch { } return t ? { id, ...t } : clone(BUILTIN_TEMPLATES.find(b => b.id === id)) || null; }
+async function getTemplate(id) { let t = null; try { t = await S.get("templates/" + id); } catch { } const b = BUILTIN_TEMPLATES.find(x => x.id === id); return t ? { id, cat: b?.cat, text: b?.text, ...t } : clone(b) || null; }
 async function seedTemplates() {
   const ex = await S.list("templates");
   if (ex.length) return;
@@ -1031,51 +1277,88 @@ route(/^\/(?:designs)?$/, async () => {
       <p>${esc(SITE.tagline || "")}</p>
       <div class="hero-orn">${ORN.divider("#b8913f")}</div>
     </header>
+    <nav class="chips">${[["all", "الكل"], ...Object.entries(CATS)].map(([k, v], i) => `<button data-cat="${k}" class="${i ? "" : "on"}">${v}</button>`).join("")}</nav>
     <div class="gal-grid">${ts.map(t => `
-      <article class="gcard" style="${cssVars(t.design)}">
+      <article class="gcard" data-c="${esc(t.cat || "classic")}" style="${cssVars(t.design)}">
         <div class="gstage">${envelopeThumb(t.design, SAMPLE_EVENT, 220)}</div>
         <div class="gbody">
           <div class="gname"><b>${esc(t.nameAr || t.nameEn)}</b><span>${esc(t.nameEn || "")}</span></div>
           <p>${esc(t.desc || "")}</p>
           <div class="sw">${["bg", "env", "paper", "accent"].map(k => `<i style="background:${esc(t.design.colors[k])}"></i>`).join("")}<small>${esc(ENVELOPES[t.design.envelope]?.ar || "")}</small></div>
-          <div class="gact"><a class="btn pri" href="#/try/${esc(t.id)}">تجربة الدعوة</a><button class="btn" data-want="${esc(t.id)}">أرغب بهذا التصميم</button></div>
+          <div class="gact"><a class="btn pri" href="#/try/${esc(t.id)}">تجربة الدعوة</a><button class="btn" data-want="${esc(t.id)}">${ME.role === "bride" ? "اختيار هذا التصميم" : "أرغب بهذا التصميم"}</button></div>
         </div>
       </article>`).join("")}</div>
-    <footer class="gfoot">${SITE.whatsapp ? `<a class="btn" href="${esc(waLink("السلام عليكم، أرغب بالاستفسار عن الدعوات", SITE.whatsapp))}" target="_blank" rel="noopener">تواصلي معنا واتساب</a>` : ""}<a class="tiny" href="#/login">دخول الإدارة</a></footer>
+    <footer class="gfoot">${ME.role === "bride" ? `<a class="btn pri" href="#/bride">حسابي ومتابعة دعوتي</a>` : `<a class="btn" href="#/login">عندي حساب، تسجيل الدخول</a>`}${SITE.whatsapp ? `<a class="btn" href="${esc(waLink("السلام عليكم، أرغب بالاستفسار عن الدعوات", SITE.whatsapp))}" target="_blank" rel="noopener">تواصلي معنا واتساب</a>` : ""}</footer>
   </div>`;
   $$("[data-want]").forEach(b => b.onclick = () => orderForm(b.dataset.want, ts));
+  $$("[data-cat]").forEach(b => b.onclick = () => { $$("[data-cat]").forEach(x => x.classList.toggle("on", x === b)); $$(".gcard").forEach(c => c.style.display = b.dataset.cat === "all" || c.dataset.c === b.dataset.cat ? "" : "none"); });
 });
-function orderForm(tid, ts) {
-  const m = modal(`<h2>أرغب بهذا التصميم</h2><form class="form" id="of">
-    ${fld("الاسم", "name", "", "text", 'required maxlength="80" autocomplete="name"')}
-    ${fld("رقم الجوال / واتساب", "contact", "", "tel", 'required maxlength="30" dir="ltr" inputmode="tel"')}
-    ${sel("وسيلة التواصل المفضلة", "method", { whatsapp: "واتساب", call: "اتصال", sms: "رسالة نصية" }, "whatsapp")}
-    ${sel("التصميم المطلوب", "design", Object.fromEntries(ts.map(t => [t.id, t.nameAr + " — " + t.nameEn])), tid)}
-    ${fld("تاريخ المناسبة (اختياري)", "date", "", "date")}
-    ${fld("ملاحظات (اختياري)", "notes", "", "textarea", 'maxlength="500"')}
-    <div class="err"></div><button class="btn pri wide">إرسال الطلب</button></form>`);
+async function myOrders() { return ME.user ? (await S.list("orders", { where: [["uid", "==", ME.user.uid]] }).catch(() => [])) : []; }
+const OPEN = (o) => o.status === "new" || o.status === "contacted";
+async function orderForm(tid, ts) {
+  const t = ts.find(x => x.id === tid);
+  // already a client: just attach / switch the design
+  if (ME.role === "bride") {
+    const open = (await myOrders()).find(OPEN);
+    if (open) { await S.set("orders/" + open.id, { design: tid, designName: t?.nameAr || "" }, true); toast("تم تغيير التصميم إلى «" + (t?.nameAr || "") + "»"); }
+    else {
+      const u = await S.get("users/" + ME.user.uid).catch(() => ({})) || {};
+      await S.add("orders", { name: (u.name || "").slice(0, 80), contact: (u.phone || "").slice(0, 30), method: "whatsapp", design: tid, designName: t?.nameAr || "", date: "", notes: "", status: "new", at: Date.now(), uid: ME.user.uid, email: ME.user.email || "" });
+      toast("تم اختيار التصميم");
+    }
+    location.hash = "#/bride"; return;
+  }
+  if (ME.role === "owner") { location.hash = "#/admin/new/tpl/" + tid; return; }
+  let mode = "new";
+  const m = modal(`<div class="of-head" style="${t ? cssVars(t.design) : ""}">${t ? envelopeThumb(t.design, SAMPLE_EVENT, 150) : ""}<div><small>التصميم المختار</small><b>${esc(t?.nameAr || "")}</b></div></div>
+    <h2 id="oft">أنشئي حسابك لحجز التصميم</h2>
+    <p class="muted" id="ofp">بهذا الحساب تتابعين طلبك، وبعد نشر دعوتك تشوفين ردود المدعوات أولًا بأول.</p>
+    <form class="form" id="of">
+      <div class="nw">${fld("الاسم", "name", "", "text", 'maxlength="80" autocomplete="name"')}
+      ${fld("رقم الجوال / واتساب", "contact", "", "tel", 'maxlength="30" dir="ltr" inputmode="tel" autocomplete="tel"')}
+      ${fld("تاريخ الزواج (اختياري)", "date", "", "date")}</div>
+      ${fld("البريد الإلكتروني", "email", "", "email", 'required dir="ltr" autocomplete="username"')}
+      ${fld("كلمة المرور (6 أحرف أو أكثر)", "pw", "", "password", 'required minlength="6" dir="ltr" autocomplete="new-password"')}
+      <div class="err"></div><button class="btn pri wide" id="ofb">إنشاء الحساب وحجز التصميم</button>
+      <button type="button" class="link" id="ofm">عندي حساب، تسجيل الدخول</button></form>`);
   const f = $("#of", m.el);
+  $("#ofm", m.el).onclick = () => {
+    mode = mode === "new" ? "login" : "new";
+    $(".nw", f).style.display = mode === "new" ? "" : "none";
+    $("#oft", m.el).textContent = mode === "new" ? "أنشئي حسابك لحجز التصميم" : "تسجيل الدخول";
+    $("#ofp", m.el).style.display = mode === "new" ? "" : "none";
+    $("#ofb", m.el).textContent = mode === "new" ? "إنشاء الحساب وحجز التصميم" : "دخول وحجز التصميم";
+    $("#ofm", m.el).textContent = mode === "new" ? "عندي حساب، تسجيل الدخول" : "ما عندي حساب، إنشاء حساب جديد";
+    f.pw.autocomplete = mode === "new" ? "new-password" : "current-password";
+  };
   f.onsubmit = async (e) => {
-    e.preventDefault(); const err = $(".err", f);
-    const d = Object.fromEntries(new FormData(f)); d.name = d.name.trim(); d.contact = d.contact.trim();
-    if (!d.name || !d.contact) { err.textContent = "فضلًا أكملي الاسم ووسيلة التواصل"; return; }
-    const t = ts.find(x => x.id === d.design);
-    const btn = $("button.pri", f); btn.disabled = true;
+    e.preventDefault(); const err = $(".err", f); err.textContent = "";
+    const d = Object.fromEntries(new FormData(f)); const email = d.email.trim().toLowerCase();
+    if (mode === "new" && (!d.name.trim() || !d.contact.trim())) { err.textContent = "فضلًا اكتبي الاسم ورقم الجوال"; return; }
+    const btn = $("#ofb", m.el); btn.disabled = true;
     try {
-      await S.add("orders", { name: d.name.slice(0, 80), contact: d.contact.slice(0, 30), method: d.method, design: d.design, designName: t?.nameAr || "", date: d.date || "", notes: (d.notes || "").slice(0, 500), status: "new", at: Date.now() });
-      $(".m-box", m.el).innerHTML = `<div class="thanks"><div class="big">✓</div><h2>وصل طلبك</h2><p>سنتواصل معكِ قريبًا لتجهيز دعوتك بتصميم «${esc(t?.nameAr || "")}».</p><button class="btn pri" id="okb">حسنًا</button></div>`;
-      $("#okb", m.el).onclick = m.close;
-    } catch (x) { err.textContent = x.message; btn.disabled = false; }
+      if (mode === "new") {
+        await S.signUp(email, d.pw); await waitUser();
+        await S.set("users/" + ME.user.uid, { role: "bride", name: d.name.trim().slice(0, 80), phone: d.contact.trim().slice(0, 30), email, inviteIds: [], at: Date.now() });
+        await resolveRole();
+        await S.add("orders", { name: d.name.trim().slice(0, 80), contact: d.contact.trim().slice(0, 30), method: "whatsapp", design: tid, designName: t?.nameAr || "", date: d.date || "", notes: "", status: "new", at: Date.now(), uid: ME.user.uid, email });
+      } else {
+        await S.signIn(email, d.pw); await waitUser(); await resolveRole();
+        if (ME.role !== "bride") { err.textContent = "هذا الحساب غير مخصص للعميلات"; btn.disabled = false; return; }
+        m.close(); return orderForm(tid, ts);
+      }
+      m.close(); location.hash = "#/bride";
+    } catch (x) { err.textContent = x.message + (x.message.includes("مسجّل") ? " — اضغطي «عندي حساب»" : ""); btn.disabled = false; }
   };
 }
 route(/^\/try\/([\w-]+)$/, async (tid) => {
   const t = await getTemplate(tid); if (!t) { location.hash = "#/"; return; }
   app().innerHTML = `<div class="blank"></div>`;
   const ts = await getTemplates(true);
-  currentXp = mountExperience(app(), { design: t.design, event: SAMPLE_EVENT, rsvp: SAMPLE_RSVP, mode: "demo" }, {
+  currentXp = mountExperience(app(), { design: t.design, event: { ...SAMPLE_EVENT, ...(t.text || {}) }, rsvp: SAMPLE_RSVP, mode: "demo" }, {
     onRsvp: async () => { await sleep(500); },
     onClose: () => { location.hash = "#/designs"; },
-    cta: { label: "أرغب بهذا التصميم", onClick: () => orderForm(tid, ts) }
+    cta: { label: ME.role === "bride" ? "اختيار هذا التصميم" : "أرغب بهذا التصميم", onClick: () => { stopXp(); $$(".overlay").forEach(x => x.remove()); orderForm(tid, ts); } }
   });
 });
 
@@ -1107,13 +1390,14 @@ route(/^\/login$/, async () => {
   const first = !owner;
   app().innerHTML = shell(`<div class="login">
     <h1>${first ? "إعداد حساب المالك" : "تسجيل الدخول"}</h1>
-    <p class="muted">${first ? "أول حساب يُنشأ هنا يصبح حساب المالك ويتحكم بالمنصة كاملة." : "للمالك والعرائس."}</p>
+    <p class="muted">${first ? "أول حساب يُنشأ هنا يصبح حساب المالك ويتحكم بالمنصة كاملة." : "للعميلات والإدارة."}</p>
     <form class="form" id="lf">
       ${fld("البريد الإلكتروني", "email", "", "email", 'required autocomplete="username" dir="ltr"')}
       ${fld("كلمة المرور", "pw", "", "password", `required minlength="6" autocomplete="${first ? "new-password" : "current-password"}" dir="ltr"`)}
       <div class="err"></div>
       <button class="btn pri wide">${first ? "إنشاء حساب المالك" : "دخول"}</button>
     </form>
+    ${!first ? `<p class="muted" style="text-align:center;margin-top:14px">عميلة جديدة؟ <a href="#/designs">اختاري تصميمك وأنشئي حسابك</a></p>` : ""}
     ${ME.user && !ME.role ? `<p class="muted">الحساب الحالي (${esc(ME.user.email)}) غير مرتبط بأي صلاحية. <button class="link" data-a="logout">خروج</button></p>` : ""}
   </div>`, { back: "#/" });
   const f = $("#lf");
@@ -1169,7 +1453,7 @@ async function tabDesigns(el) {
     <div class="dbody"><b>${esc(t.nameAr)}</b><small>${esc(t.nameEn || "")} · ${esc(ENVELOPES[t.design.envelope]?.ar || "")}</small>
     <div class="sw">${["bg", "env", "paper", "accent", "ink"].map(k => `<i style="background:${esc(t.design.colors[k])}"></i>`).join("")}${t.showInGallery === false ? `<small class="muted">مخفي من المعرض</small>` : ""}</div>
     <div class="dact"><a class="btn sm" href="#/admin/tpl/${esc(t.id)}">تعديل</a><a class="btn sm" href="#/admin/tpl/new/${esc(t.id)}">نسخ كتصميم جديد</a><button class="btn sm" data-try="${esc(t.id)}">تجربة</button></div></div></div>`).join("")}</div>`;
-  $$("[data-try]", el).forEach(b => b.onclick = () => { const t = ts.find(x => x.id === b.dataset.try); fullPreview({ design: t.design, event: SAMPLE_EVENT, rsvp: SAMPLE_RSVP, mode: "demo" }, { onRsvp: async () => { } }); });
+  $$("[data-try]", el).forEach(b => b.onclick = () => { const t = ts.find(x => x.id === b.dataset.try); fullPreview({ design: t.design, event: { ...SAMPLE_EVENT, ...(t.text || {}) }, rsvp: SAMPLE_RSVP, mode: "demo" }, { onRsvp: async () => { } }); });
 }
 const OSTAT = { new: "جديد", contacted: "تم التواصل", converted: "أُنشئت الدعوة", closed: "مغلق" };
 async function tabOrders(el) {
@@ -1177,11 +1461,13 @@ async function tabOrders(el) {
   el.innerHTML = os.length ? `<div class="list">${os.map(o => `<div class="row col">
     <div class="r-top"><b>${esc(o.name)}</b><span class="st ost-${esc(o.status)}">${OSTAT[o.status] || o.status}</span></div>
     <div class="r-meta"><span dir="ltr">${esc(o.contact)}</span> · ${esc({ whatsapp: "واتساب", call: "اتصال", sms: "رسالة" }[o.method] || "")} · ${esc(o.designName)}${o.date ? " · " + esc(o.date) : ""} · <small>${fmtTs(o.at)}</small></div>
+    ${o.uid ? `<div class="r-meta">✓ حساب العميلة: <span dir="ltr">${esc(o.email || "")}</span></div>` : ""}
+    ${o.event && (o.event.bride || o.event.venue) ? `<div class="r-notes">${esc([o.event.bride && o.event.groom ? o.event.bride + " و" + o.event.groom : o.event.bride, o.event.date, o.event.time, o.event.venue, o.event.city].filter(Boolean).join(" · "))}${o.event.notes ? "<br>" + esc(o.event.notes) : ""}</div>` : ""}
     ${o.notes ? `<div class="r-notes">${esc(o.notes)}</div>` : ""}
     <div class="r-act">
       <a class="btn sm" target="_blank" rel="noopener" href="${esc(waLink(`مرحبًا ${o.name}، شكرًا لطلبك تصميم «${o.designName}»`, o.contact))}">واتساب</a>
       <a class="btn sm" href="tel:${esc(o.contact.replace(/[^\d+]/g, ""))}">اتصال</a>
-      <a class="btn sm pri" href="#/admin/new/order/${esc(o.id)}">إنشاء دعوة من الطلب</a>
+      ${o.inviteId ? `<a class="btn sm" href="#/admin/inv/${esc(o.inviteId)}">فتح الدعوة</a>` : `<a class="btn sm pri" href="#/admin/new/order/${esc(o.id)}">إنشاء دعوة من الطلب</a>`}
       <select data-os="${esc(o.id)}" aria-label="حالة الطلب">${Object.entries(OSTAT).map(([k, v]) => `<option value="${k}" ${k === o.status ? "selected" : ""}>${v}</option>`).join("")}</select>
     </div></div>`).join("")}</div>` : `<div class="empty">لا توجد طلبات بعد. تصل الطلبات هنا من صفحة «اكتشفي تصاميمنا».</div>`;
   $$("[data-os]", el).forEach(s => s.onchange = async () => { await S.set("orders/" + s.dataset.os, { status: s.value }, true); toast("تم تحديث الحالة"); });
@@ -1244,11 +1530,19 @@ async function tabBank(el) {
   $("#reset").onclick = async () => { if (!(await ask("تصفير الحصالة؟ يبدأ العد من صفر، والسجل القديم يبقى محفوظ.", "تصفير"))) return; const at = Date.now(); await S.set("config/site", { bankResetAt: at }, true); SITE.bankResetAt = at; toast("تم التصفير"); tabBank(el); };
 }
 
+const PALETTES = {
+  ivory: { name: "عاجي", c: { bg: "#efe7da", env: "#f5ecdd", envDark: "#d8c6a6", paper: "#fffaf2", accent: "#b08d4f", ink: "#3f3322", seal: "#b08d4f" } },
+  gold: { name: "ذهبي", c: { bg: "#2a2116", env: "#3a2e1e", envDark: "#241b10", paper: "#fbf3e2", accent: "#c49a45", ink: "#3a2a12", seal: "#c49a45" } },
+  beige: { name: "بيج", c: { bg: "#e9dfd0", env: "#e2d2bb", envDark: "#c8b398", paper: "#f9f3ea", accent: "#9a7b56", ink: "#4a3a2a", seal: "#9a7b56" } },
+  blush: { name: "وردي باهت", c: { bg: "#f4e6e3", env: "#f1d9d5", envDark: "#ddb9b3", paper: "#fff8f6", accent: "#b9807a", ink: "#4f3330", seal: "#c4938c" } }
+};
 /* ===================== DESIGN FORM (shared: template editor + wizard step 3) ===================== */
 function designFormHTML(d, base) {
   const c = d.colors, CL = { bg: "الخلفية", env: "الظرف", envDark: "بطانة الظرف", paper: "البطاقة", accent: "اللون الذهبي/المميز", ink: "النص", seal: "الختم/الشريط" };
   return `<div class="dform">
-    <fieldset><legend>الألوان</legend><div class="colors">${Object.entries(CL).map(([k, l]) => `<label class="cpick ${base && base.colors[k] !== c[k] ? "chg" : ""}"><input type="color" name="c.${k}" value="${esc(c[k] || "#000000")}"><span>${l}</span></label>`).join("")}</div>
+    <fieldset><legend>الألوان</legend>
+    <div class="pal">${Object.entries(PALETTES).map(([k, p]) => `<button type="button" data-pal="${k}" title="${p.name}"><i style="background:${p.c.paper}"></i><i style="background:${p.c.accent}"></i><i style="background:${p.c.env}"></i><span>${p.name}</span></button>`).join("")}</div>
+    <div class="colors">${Object.entries(CL).map(([k, l]) => `<label class="cpick ${base && base.colors[k] !== c[k] ? "chg" : ""}"><input type="color" name="c.${k}" value="${esc(c[k] || "#000000")}"><span>${l}</span></label>`).join("")}</div>
     ${base ? `<button type="button" class="link" data-reset="colors">إرجاع ألوان التصميم الأساسي</button>` : ""}</fieldset>
     <fieldset><legend>الخطوط</legend><div class="g2">
       ${sel("خط الأسماء والعناوين", "f.display", arr2opt(FONTS_AR), d.fonts.display)}
@@ -1262,6 +1556,14 @@ function designFormHTML(d, base) {
       ${sel("المؤثرات بعد الفتح", "particles", PARTICLES, d.particles)}
       ${fld("حروف الختم (اختياري)", "monogram", d.monogram || "", "text", 'maxlength="5" placeholder="تلقائي من الأسماء"')}
     </div></fieldset>
+    <fieldset><legend>العروسان الراقصان (رسم فني متحرك)</legend>
+      <label class="chk"><input type="checkbox" name="dance.on" ${d.dance?.on ? "checked" : ""}><span>إظهار رسمة العروسين وهما يرقصان مع الموسيقى</span></label>
+      <div class="dopts">
+        ${sel("مكان الرسمة في البطاقة", "dance.pos", DANCE_POS, d.dance?.pos || "top")}
+        <div class="g2"><label class="f"><span>حجم العروسين <b class="rv">${Math.round((d.dance?.size ?? 1) * 100)}%</b></span><input type="range" name="dance.size" min="60" max="130" step="5" value="${Math.round((d.dance?.size ?? 1) * 100)}"></label>
+        <label class="f"><span>سرعة الحركة <b class="rv">${Math.round((d.dance?.speed ?? 1) * 100)}%</b></span><input type="range" name="dance.speed" min="50" max="150" step="5" value="${Math.round((d.dance?.speed ?? 1) * 100)}"></label></div>
+        <p class="hint-s">الرقصة مربوطة بزمن الموسيقى: تبدأ معها، وتتوقف إذا أوقفتها المدعوة، وتثبت العروسان في وضعية رومانسية مع آخر نغمة.</p>
+      </div></fieldset>
     <fieldset><legend>الموسيقى</legend>
       ${sel("نوع الموسيقى", "music", MUSIC, d.music)}
       <div class="mfile">
@@ -1270,6 +1572,7 @@ function designFormHTML(d, base) {
         <div class="mstat">${d.musicFile ? "✓ " + esc(d.musicName || "ملف مرفوع") : "MP3 أو M4A بحجم أقصى 4.5 ميجا"}</div>
       </div>
       <div class="murl">${fld("رابط مباشر ينتهي بـ ‎.mp3", "musicUrl", d.musicUrl || "", "url", 'dir="ltr" placeholder="https://…/song.mp3"')}</div>
+      <label class="chk"><input type="checkbox" name="musicLoop" ${(d.musicLoop ?? !d.dance?.on) ? "checked" : ""}><span>تكرار الموسيقى بعد انتهائها</span></label>
       <button type="button" class="btn sm mtest">▶︎ تجربة الصوت</button>
       <p class="hint-s">الموسيقى المدمجة مؤلفة داخل المنصة وتعمل فورًا. عند رفع ملف تأكد أن لديك حق استخدامه.</p></fieldset>
   </div>`;
@@ -1281,6 +1584,8 @@ function readDesignForm(root, d) {
     if (n.startsWith("c.")) o.colors[n.slice(2)] = v;
     else if (n.startsWith("f.")) o.fonts[n.slice(2)] = v;
     else if (["envelope", "transition", "ornament", "particles", "music", "musicUrl", "musicFile", "musicName", "monogram"].includes(n)) o[n] = v.trim();
+    else if (n === "musicLoop") o.musicLoop = i.checked;
+    else if (n.startsWith("dance.")) { o.dance = o.dance || {}; const k = n.slice(6); o.dance[k] = k === "on" ? i.checked : k === "pos" ? v : (+v || 100) / 100; }
   });
   return o;
 }
@@ -1293,11 +1598,14 @@ function diffDesign(full, base) {  // overrides only
   return out;
 }
 function bindDesignForm(root, getD, setD, base, onChange) {
-  const vis = () => { const m = $("[name=music]", root)?.value; const f = $(".mfile", root), u = $(".murl", root), t = $(".mtest", root);
+  const vis = () => { const dn = $("[name='dance.on']", root); const dop = $(".dopts", root); if (dn && dop) dop.style.display = dn.checked ? "" : "none";
+    $$("input[type=range]", root).forEach(r => { const b = r.closest("label").querySelector(".rv"); if (b) b.textContent = r.value + "%"; });
+    const m = $("[name=music]", root)?.value; const f = $(".mfile", root), u = $(".murl", root), t = $(".mtest", root);
     if (f) f.style.display = m === "file" ? "" : "none"; if (u) u.style.display = m === "url" ? "" : "none"; if (t) t.style.display = m === "none" ? "none" : ""; };
   const upd = (e) => { if (e?.target?.type === "file") return; setD(readDesignForm(root, getD())); onChange(); vis(); };
   root.addEventListener("input", upd); root.addEventListener("change", upd);
   $$("[data-reset]", root).forEach(b => b.onclick = () => { const d = getD(); d.colors = clone(base.colors); setD(d); $$("[name^='c.']", root).forEach(i => i.value = d.colors[i.name.slice(2)]); onChange(); });
+  $$("[data-pal]", root).forEach(b => b.onclick = () => { const d = getD(); d.colors = { ...d.colors, ...PALETTES[b.dataset.pal].c }; setD(d); $$("[name^='c.']", root).forEach(i => { if (d.colors[i.name.slice(2)]) i.value = d.colors[i.name.slice(2)]; }); upd(); });
   const fi = $(".mup input[type=file]", root);
   if (fi) fi.onchange = async () => {
     const file = fi.files[0]; if (!file) return; const st = $(".mstat", root), lab = $(".mup span", root);
@@ -1329,6 +1637,7 @@ route(/^\/admin\/tpl\/(new\/)?([\w-]+)$/, async (isNew, tid) => {
       <div class="card"><h3>${isNew ? "تصميم جديد مبني على «" + esc(src.nameAr) + "»" : "بيانات التصميم"}</h3>
         <div class="g2">${fld("الاسم بالعربي", "nameAr", t.nameAr, "text", 'required maxlength="40"')}${fld("الاسم بالإنجليزي", "nameEn", t.nameEn || "", "text", 'maxlength="40" dir="ltr"')}</div>
         ${fld("وصف التجربة", "desc", t.desc || "", "textarea", 'maxlength="220"')}
+        ${sel("التصنيف", "cat", CATS, t.cat || "classic")}
         <div class="g2">${fld("ترتيب الظهور", "order", t.order ?? 99, "number", 'step="0.5"')}<label class="chk"><input type="checkbox" name="showInGallery" ${t.showInGallery !== false ? "checked" : ""}><span>يظهر في صفحة «اكتشفي تصاميمنا»</span></label></div>
       </div>
       <div class="card" id="dfw">${designFormHTML(t.design)}</div>
@@ -1343,8 +1652,8 @@ route(/^\/admin\/tpl\/(new\/)?([\w-]+)$/, async (isNew, tid) => {
   $("#tryb").onclick = () => fullPreview({ design: t.design, event: SAMPLE_EVENT, rsvp: SAMPLE_RSVP, mode: "demo" }, { onRsvp: async () => { } });
   $("#tf").onsubmit = async (e) => {
     e.preventDefault(); const f = e.target;
-    const rec = { nameAr: f.nameAr.value.trim(), nameEn: f.nameEn.value.trim(), desc: f.desc.value.trim(), order: +f.order.value || 99, showInGallery: f.showInGallery.checked, design: t.design, builtin: !!t.builtin, updatedAt: Date.now() };
-    if (t.baseId) rec.baseId = t.baseId;
+    const rec = { cat: f.cat.value, nameAr: f.nameAr.value.trim(), nameEn: f.nameEn.value.trim(), desc: f.desc.value.trim(), order: +f.order.value || 99, showInGallery: f.showInGallery.checked, design: t.design, builtin: !!t.builtin, updatedAt: Date.now() };
+    if (t.baseId) rec.baseId = t.baseId; if (t.text) rec.text = t.text;
     const id = isNew ? slugify(rec.nameEn || rec.nameAr) + "-" + rid(4) : tid;
     if (isNew) rec.createdAt = Date.now();
     await S.set("templates/" + id, rec); toast("تم الحفظ"); location.hash = "#/admin/designs";
@@ -1369,7 +1678,11 @@ route(/^\/admin\/(new|edit)(?:\/(order|tpl))?(?:\/([\w-]+))?$/, async (mode, kin
   if (mode === "edit") { iid = id; W = await S.get("invites/" + iid); if (!W) { location.hash = "#/admin"; return; } W = deepMerge(blankInvite(), W); W.design = W.design || {}; }
   else {
     W = blankInvite();
-    if (kind === "order" && id) { const o = await S.get("orders/" + id); if (o) { W.clientName = o.name; W.templateId = o.design || W.templateId; W.event.date = o.date || ""; W.orderId = id; W.clientContact = o.contact; } }
+    if (kind === "order" && id) { const o = await S.get("orders/" + id); if (o) {
+      W.clientName = o.name; W.templateId = o.design || W.templateId; W.event.date = o.date || ""; W.orderId = id; W.clientContact = o.contact;
+      if (o.event) for (const k of ["bride", "groom", "date", "time", "venue", "city", "mapUrl", "notes"]) if (o.event[k]) W.event[k] = o.event[k];
+      if (o.uid) W.brideUids = [o.uid];
+    } }
     if (kind === "tpl" && id) W.templateId = id;
   }
   let step = mode === "edit" ? 1 : (kind === "order" ? 1 : 0); let dirty = false;
@@ -1384,7 +1697,12 @@ route(/^\/admin\/(new|edit)(?:\/(order|tpl))?(?:\/([\w-]+))?$/, async (mode, kin
   const save = async (silent) => {
     collect();
     const rec = { ...clone(W), updatedAt: Date.now() }; if (!rec.createdAt) rec.createdAt = Date.now();
-    if (!iid) { iid = await S.add("invites", rec); if (W.orderId) await S.set("orders/" + W.orderId, { status: "converted", inviteId: iid }, true).catch(() => { }); history.replaceState(null, "", "#/admin/edit/" + iid); }
+    if (!iid) {
+      iid = await S.add("invites", rec);
+      if (W.orderId) await S.set("orders/" + W.orderId, { status: "converted", inviteId: iid }, true).catch(() => { });
+      for (const uid of W.brideUids || []) { const u = await S.get("users/" + uid).catch(() => null); if (u && !(u.inviteIds || []).includes(iid)) await S.set("users/" + uid, { inviteIds: [...(u.inviteIds || []), iid] }, true).catch(() => { }); }
+      history.replaceState(null, "", "#/admin/edit/" + iid);
+    }
     else await S.set("invites/" + iid, rec);
     W.createdAt = rec.createdAt; dirty = false; if (!silent) toast("تم حفظ المسودة");
   };
@@ -1405,17 +1723,21 @@ route(/^\/admin\/(new|edit)(?:\/(order|tpl))?(?:\/([\w-]+))?$/, async (mode, kin
 
   function s1() {
     body.innerHTML = `<h2 class="wh">اختر تصميم الدعوة</h2><p class="muted">اضغط «تجربة» لمشاهدة الدعوة كما ستراها المدعوة من فتح الظرف حتى البطاقة.</p>
-    <div class="tgrid">${ts.map(t => `<div class="tcard ${t.id === W.templateId ? "sel" : ""}" data-t="${esc(t.id)}" tabindex="0" role="button" aria-pressed="${t.id === W.templateId}">
+    <nav class="chips sm">${[["all", "الكل"], ...Object.entries(CATS)].map(([k, v], i) => `<button type="button" data-cat="${k}" class="${i ? "" : "on"}">${v}</button>`).join("")}</nav>
+    <div class="tgrid">${ts.map(t => `<div data-c="${esc(t.cat || "classic")}" class="tcard ${t.id === W.templateId ? "sel" : ""}" data-t="${esc(t.id)}" tabindex="0" role="button" aria-pressed="${t.id === W.templateId}">
       <div class="tstage" style="background:${esc(t.design.colors.bg)}">${envelopeThumb(t.design, W.event.bride ? W.event : SAMPLE_EVENT, 140)}</div>
       <div class="tb"><b>${esc(t.nameAr)}</b><small>${esc(t.nameEn || "")}</small>
       <div class="sw">${["env", "paper", "accent", "ink"].map(k => `<i style="background:${esc(t.design.colors[k])}"></i>`).join("")}</div>
       <small class="muted">${esc(ENVELOPES[t.design.envelope]?.ar || "")}</small>
       <button class="btn sm" data-pv="${esc(t.id)}">تجربة</button></div></div>`).join("")}</div>`;
     $$("[data-t]", body).forEach(c => {
-      const pick = async () => { if (W.templateId !== c.dataset.t) { if (Object.keys(W.design || {}).length && !(await ask("تغيير التصميم سيلغي تخصيصات المظهر الحالية. متابعة؟", "متابعة"))) return; W.templateId = c.dataset.t; W.design = {}; dirty = true; } $$(".tcard", body).forEach(x => { x.classList.toggle("sel", x === c); x.setAttribute("aria-pressed", x === c); }); };
+      const pick = async () => { if (W.templateId !== c.dataset.t) { if (Object.keys(W.design || {}).length && !(await ask("تغيير التصميم سيلغي تخصيصات المظهر الحالية. متابعة؟", "متابعة"))) return; W.templateId = c.dataset.t; W.design = {}; dirty = true;
+        const nt = ts.find(x => x.id === W.templateId), B = blankInvite().event;
+        for (const k of ["opening", "inviteText", "closing"]) { const known = ts.some(x => x.text?.[k] === W.event[k]); if (W.event[k] === B[k] || known || !W.event[k]) W.event[k] = nt?.text?.[k] || B[k]; } } $$(".tcard", body).forEach(x => { x.classList.toggle("sel", x === c); x.setAttribute("aria-pressed", x === c); }); };
       c.onclick = (e) => { if (e.target.closest("[data-pv]")) return; pick(); };
       c.onkeydown = (e) => { if (e.key === "Enter") pick(); };
     });
+    $$("[data-cat]", body).forEach(b => b.onclick = () => { $$("[data-cat]", body).forEach(x => x.classList.toggle("on", x === b)); $$(".tcard", body).forEach(c => c.style.display = b.dataset.cat === "all" || c.dataset.c === b.dataset.cat ? "" : "none"); });
     $$("[data-pv]", body).forEach(b => b.onclick = () => { const t = ts.find(x => x.id === b.dataset.pv); fullPreview({ design: t.design, event: W.event.bride ? W.event : SAMPLE_EVENT, rsvp: W.rsvp, mode: "demo" }, { onRsvp: async () => { } }); });
   }
   function s2() {
@@ -1516,10 +1838,30 @@ route(/^\/admin\/inv\/([\w-]+)$/, async (iid) => { if (!needOwner()) return; awa
 route(/^\/bride(?:\/([\w-]+))?$/, async (iid) => {
   if (ME.role !== "bride") { location.hash = ME.role === "owner" ? "#/admin" : "#/login"; return; }
   if (iid) return inviteDetail(iid, false);
-  const u = await S.get("users/" + ME.user.uid).catch(() => null);
-  const list = (await Promise.all((u?.inviteIds || []).map(id => S.get("invites/" + id).then(d => d ? { id, ...d } : null).catch(() => null)))).filter(Boolean);
-  if (list.length === 1) { location.hash = "#/bride/" + list[0].id; return; }
-  app().innerHTML = shell(list.length ? `<h2 class="wh">أهلًا ${esc(ME.name)}</h2><div class="list">${list.map(i => `<a class="row" href="#/bride/${esc(i.id)}"><div class="r-main"><b>${esc(i.event?.bride || "")}${i.event?.groom ? " & " + esc(i.event.groom) : ""}</b><span>${esc(i.event?.date || "")}</span></div></a>`).join("")}</div>` : `<div class="empty">لا توجد دعوات مرتبطة بحسابك بعد.</div>`, { title: "لوحة العروس" });
+  const u = await S.get("users/" + ME.user.uid).catch(() => null) || {};
+  const [list, orders, ts] = await Promise.all([
+    Promise.all((u.inviteIds || []).map(id => S.get("invites/" + id).then(d => d ? { id, ...d } : null).catch(() => null))).then(a => a.filter(Boolean)),
+    myOrders(), getTemplates(true)]);
+  const pending = orders.filter(OPEN).sort((a, b) => (b.at || 0) - (a.at || 0));
+  if (list.length === 1 && !pending.length) { location.hash = "#/bride/" + list[0].id; return; }
+  const OST = { new: "تم استلام طلبك، وسيتم التواصل معكِ قريبًا", contacted: "جاري تجهيز دعوتك" };
+  app().innerHTML = shell(`<h2 class="wh">أهلًا ${esc(u.name || ME.name || "")}</h2><p class="muted">من هنا تتابعين دعوتك وردود المدعوات.</p>
+    ${list.map(i => `<a class="row" href="#/bride/${esc(i.id)}"><div class="r-main"><b>دعوة ${esc(i.event?.bride || "")}${i.event?.groom ? " و" + esc(i.event.groom) : ""}</b><span>${esc(i.event?.date || "")}</span></div><div class="r-side"><span class="st ${i.status === "published" ? "st-p" : "st-d"}">${i.status === "published" ? "منشورة — شوفي الردود" : "قيد التجهيز"}</span></div></a>`).join("")}
+    ${pending.map(o => { const t = ts.find(x => x.id === o.design) || ts[0]; const e = o.event || {}; return `<div class="card ord">
+      <div class="ord-h"><div class="ord-t" style="background:${esc(t.design.colors.bg)}">${envelopeThumb(t.design, SAMPLE_EVENT, 120)}</div>
+        <div><small class="muted">التصميم المختار</small><b>${esc(t.nameAr)}</b><span class="st st-h">${OST[o.status] || ""}</span><a class="btn sm" href="#/designs">تغيير التصميم</a></div></div>
+      <form class="form evf" data-o="${esc(o.id)}"><h3>بيانات المناسبة <small class="muted">(اختياري، تسرّع تجهيز دعوتك)</small></h3>
+        <div class="g2">${fld("اسم العروس", "bride", e.bride || "", "text", 'maxlength="40"')}${fld("اسم العريس", "groom", e.groom || "", "text", 'maxlength="40"')}
+        ${fld("تاريخ الزواج", "date", e.date || o.date || "", "date")}${fld("الوقت", "time", e.time || "", "time")}
+        ${fld("القاعة", "venue", e.venue || "", "text", 'maxlength="80"')}${fld("المدينة", "city", e.city || "", "text", 'maxlength="40"')}</div>
+        ${fld("رابط الموقع (اختياري)", "mapUrl", e.mapUrl || "", "url", 'dir="ltr"')}
+        ${fld("ملاحظات أو طلبات خاصة", "notes", e.notes || "", "textarea", 'maxlength="400"')}
+        <button class="btn pri">حفظ البيانات</button></form></div>`; }).join("")}
+    ${!list.length && !pending.length ? `<div class="empty">ما عندك طلب حاليًا.<br><br><a class="btn pri" href="#/designs">اختاري تصميم دعوتك</a></div>` : ""}`, { title: "حسابي" });
+  $$(".evf").forEach(f => f.onsubmit = async (e) => {
+    e.preventDefault(); const d = Object.fromEntries(new FormData(f)); for (const k in d) d[k] = d[k].trim();
+    try { await S.set("orders/" + f.dataset.o, { event: d }, true); toast("تم حفظ البيانات ✓"); } catch (x) { toast(x.message, "bad"); }
+  });
 });
 async function inviteDetail(iid, owner) {
   const inv = await S.get("invites/" + iid); if (!inv) { location.hash = owner ? "#/admin" : "#/bride"; return; }
